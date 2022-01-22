@@ -1,0 +1,39 @@
+﻿  Actor.cpp
+  Aircraft.cpp
+  Animation.cpp
+  Animation2.cpp
+  Application.cpp
+  BloomEffect.cpp
+  Command.cpp
+  CommandQueue.cpp
+  DataTables.cpp
+  EmitterNode.cpp
+  Entity.cpp
+  GameOverState.cpp
+  GameState.cpp
+  JsonFrameParser.cpp
+  MenuState.cpp
+  MusicPlayer.cpp
+  ParticleNode.cpp
+  PauseState.cpp
+  Pickup.cpp
+  PlayerControl.cpp
+  Generating Code...
+  Compiling...
+  PostEffect.cpp
+  Projectile.cpp
+  SceneNode.cpp
+  SoundNode.cpp
+  SoundPlayer.cpp
+D:\Studies\C++\GexSr-Andy-Project\game-AndyNguyen-byte-zombies\GexGame\SoundPlayer.cpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Source.cpp
+  SpriteNode.cpp
+  State.cpp
+  StateStack.cpp
+  TextNode.cpp
+  TitleState.cpp
+  Ultility.cpp
+  World.cpp
+D:\Studies\C++\GexSr-Andy-Project\game-AndyNguyen-byte-zombies\GexGame\World.cpp(277,9): warning C4804: '<': unsafe use of type 'bool' in operation
+  Generating Code...
+  GexGame.vcxproj -> D:\Studies\C++\GexSr-Andy-Project\game-AndyNguyen-byte-zombies\x64\Debug\GexGame.exe
