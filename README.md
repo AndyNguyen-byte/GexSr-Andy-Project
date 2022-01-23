@@ -1,4 +1,4 @@
-# FlappyBird Project
+# FlappyTurtle Project
 
 ### Group Members
 - Andy Nguyen
@@ -24,21 +24,42 @@ The original game's main character was a bird, but it will be a turtle for my im
 
 #### Sketch of main character
 
-
+![Character Sketch](Characters/turtle.png)
 
 #### Opponents
 
+The primary opponent in the game is the pillars, and it's straightforward if the turtle touches the pillar, it dies. The game will randomly generate the pillars at different heights to make the game more challenging. The column's textures will alternate between making the game look more colourful and appealing. Usually, the pillars will spawn from the right side and the left side when inversed.
+
 #### Sketch of Opponents
+
+![Pillars](Characters/pillars.png)
 
 #### Environment
 
+The environment will be underwater and the night sky with the city in the background.
+
 #### Sketch of world
+
+![Backgrounds](Characters/Background.png)
 
 #### Menus
 
+This is the title menu
+
+![](Characters/Title%20Menu.png)
+
+There will be a button for the user to rate the game, a button to start playing and a button to access the leader board.
+
+There will also be a pause menu and game over menu for the game
+
 #### Controls
+
+For the controls of the game, there will be only one control and that is pressing the space bar to make the turtle go up and not touch the bottom of the screen or the pillars
 
 #### Sounds
 
+There are sounds for the game such as the sound when the turtle goes up, dying sound and the sound when a button is clicked.
 
 ## Summary
+
+The world-famous Flappy Bird game, with its addicting gameplay, now has its successor recreated in C++ ***Flappy turtle***! The game has added exciting modes like time slow, reverse gameplay, inverse gravity, and more in the future! Instead of the yellow bird, the star of the game is now a cute turtle! You can unlock new looks for the turtle just by playing the game!
