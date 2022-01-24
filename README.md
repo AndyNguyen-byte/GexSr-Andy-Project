@@ -5,7 +5,7 @@
  
 
 ## Executive Summary
-The game will be my impersonation of the World Famous Game Flappy Bird. I want to be as close as possible to the original game with optimization to the code and some new features such as upside-down mode after a checkpoint. The game will be a side-scroller like the original game with the same looks and feel. The target audience is casual gamers who want to burn time in a fun way. The game flow will be faster and faster as the point increases.
+The game will be my interpretation of the World Famous Game Flappy Bird. I want to be as close as possible to the original game with optimization to the code and some new features such as upside-down mode after a checkpoint. The game will be a side-scroller like the original game with the same looks and feel. The target audience is casual gamers who want to burn time in a fun way. The game flow will be faster and faster as the point increases.
 
 The game will have different textures compared to the original games and other game mechanics like items with  powers like slowing down time or the world getting flipped around being upside down.
 
