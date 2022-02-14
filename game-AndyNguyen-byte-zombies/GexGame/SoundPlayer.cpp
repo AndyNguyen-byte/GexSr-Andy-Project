@@ -1,6 +1,6 @@
 #include "SoundPlayer.h"
 
-#include <SFML/System/Vector2.hpp>d
+#include <SFML/System/Vector2.hpp>
 #include <SFML/Audio/Listener.hpp>
 #include <cassert>
 #include <cmath>
@@ -28,6 +28,8 @@ SoundPlayer::SoundPlayer()
 	loadBuffer(SoundEffectID::LaunchMissile, "../Media/Sound/LaunchMissile.wav");
 	loadBuffer(SoundEffectID::CollectPickup, "../Media/Sound/CollectPickup.wav");
 	loadBuffer(SoundEffectID::Button, "../Media/Sound/Button.wav");
+	//loadBuffer(SoundEffectID::FrogJump, "../Media/Sound/sound-frogger-hop.wav");
+	loadBuffer(SoundEffectID::FrogDie, "../Media/Sound/froggerDie.wav");
 
 	// Listener points towards the screen (default in SFML)
 	sf::Listener::setDirection(0.f, 0.f, -1.f);

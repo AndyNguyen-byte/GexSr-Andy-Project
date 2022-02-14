@@ -1,5 +1,6 @@
 #include "TextNode.h"
-#include "Ultility.h"
+#include "Utility.h"
+
 TextNode::TextNode(const FontHolder_t& fonts, const std::string& str)
 {
 	sfText.setFont(fonts.get(FontID::Main));
@@ -13,7 +14,7 @@ void TextNode::setText(const std::string& str)
 	centerOrigin(sfText);
 }
 
-void TextNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const 
+void TextNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(sfText, states);
 }

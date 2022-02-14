@@ -1,9 +1,9 @@
 #pragma once
+
 #include "State.h"
 #include "StateIdentifiers.h"
 #include "ResourceIdentifiers.h"
 
-#include <SFML/System/NonCopyable.hpp>
 #include <SFML/System/Time.hpp>
 
 #include <vector>
@@ -21,7 +21,7 @@ namespace sf
 class StateStack
 {
 public:
-	enum class Action 
+	enum class Action
 	{
 		Push,
 		Pop,
@@ -30,8 +30,8 @@ public:
 
 public:
 	explicit				StateStack(State::Context context);
-
 							StateStack(const StateStack&) = delete;
+
 	template <typename T>
 	void					registerState(StateID stateID);
 
@@ -48,6 +48,8 @@ public:
 private:
 	State::Ptr				createState(StateID stateID);
 	void					applyPendingChanges();
+
+
 private:
 	struct PendingChange
 	{
@@ -57,13 +59,17 @@ private:
 		StateID				stateID;
 	};
 
+
+
 private:
 	std::vector<State::Ptr>							stack;
 	std::vector<PendingChange>						pendingList;
 
 	State::Context									context;
 	std::map<StateID, std::function<State::Ptr()>>	factories;
+
 };
+
 
 template <typename T>
 void StateStack::registerState(StateID stateID)

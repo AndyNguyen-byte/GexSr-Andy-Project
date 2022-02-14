@@ -8,5 +8,5 @@ enum class StateID
 	Game,
 	Loading,
 	Pause,
-	GameOver
+	GameOver,
 };

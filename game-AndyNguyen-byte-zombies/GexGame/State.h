@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "StateIdentifiers.h"
 #include "ResourceIdentifiers.h"
 #include "MusicPlayer.h"
@@ -9,11 +8,13 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Window/Event.hpp>
 
-//forward declaration
+#include <memory>
 
+// forward declaration
 namespace sf {
 	class RenderWindow;
 }
+
 class StateStack;
 class PlayerControl;
 class SoundPlayer;
@@ -45,14 +46,16 @@ public:
 	State(StateStack& stack, Context context);
 	virtual		~State();
 
-	virtual void draw() = 0;
-	virtual bool update(sf::Time dt) = 0;
-	virtual bool handleEvent(const sf::Event& event) = 0;
+	// abstract member function 
+	virtual void	draw() = 0;
+	virtual bool	update(sf::Time dt) = 0;
+	virtual bool	handleEvent(const sf::Event& event) = 0;
+
 
 protected:
 	void				requestStackPush(StateID stateID);
 	void				requestStackPop();
-	void				requestStateClear();
+	void				requestStackClear();
 
 	Context				getContext() const;
 
@@ -60,5 +63,6 @@ protected:
 private:
 	StateStack*		stack;
 	Context			context;
+
 };
 
