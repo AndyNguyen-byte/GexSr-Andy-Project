@@ -1,6 +1,6 @@
 #include "GameOverState.h"
 #include "ResourceHolder.h"
-#include "Ultility.h"
+#include "Utility.h"
 #include "GameState.h"
 
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -47,7 +47,7 @@ bool GameOverState::update(sf::Time dt)
 	elapsedTime += dt;
 	if (elapsedTime > sf::seconds(3))
 	{
-		requestStateClear();
+		requestStackClear();
 		requestStackPush(StateID::Menu);
 	}
 	return false;

@@ -119,13 +119,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,7 +137,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,7 +145,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -160,9 +160,12 @@
     <ClCompile Include="DataTables.cpp" />
     <ClCompile Include="EmitterNode.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Frog.cpp" />
     <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="JsonFrameParser.cpp" />
+    <ClCompile Include="Lilypad.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="ParticleNode.cpp" />
@@ -171,6 +174,7 @@
     <ClCompile Include="PlayerControl.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="RiverEnitites.cpp" />
     <ClCompile Include="SceneNode.cpp" />
     <ClCompile Include="SoundNode.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
@@ -180,7 +184,8 @@
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="TextNode.cpp" />
     <ClCompile Include="TitleState.cpp" />
-    <ClCompile Include="Ultility.cpp" />
+    <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="Vehicles.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -196,10 +201,13 @@
     <ClInclude Include="DataTables.h" />
     <ClInclude Include="EmitterNode.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Frog.h" />
     <ClInclude Include="GameOverState.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonFrameParser.h" />
+    <ClInclude Include="Lilypad.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MusicPlayer.h" />
     <ClInclude Include="Particle.h" />
@@ -209,8 +217,10 @@
     <ClInclude Include="PlayerControl.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="Projectile.h" />
-    <ClInclude Include="ResourceHolder.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceIdentifiers.h" />
+    <ClInclude Include="ResourceHolder.h" />
+    <ClInclude Include="RiverEntities.h" />
     <ClInclude Include="SceneNode.h" />
     <ClInclude Include="SoundNode.h" />
     <ClInclude Include="SoundPlayer.h" />
@@ -220,8 +230,12 @@
     <ClInclude Include="StateStack.h" />
     <ClInclude Include="TextNode.h" />
     <ClInclude Include="TitleState.h" />
-    <ClInclude Include="Ultility.h" />
+    <ClInclude Include="Utility.h" />
+    <ClInclude Include="Vehicles.h" />
     <ClInclude Include="World.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GexGame.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

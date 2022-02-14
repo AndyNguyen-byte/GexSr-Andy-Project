@@ -16,5 +16,5 @@ public:
 private:
 	World					world;
 	PlayerControl&			player;
-};
 
+};

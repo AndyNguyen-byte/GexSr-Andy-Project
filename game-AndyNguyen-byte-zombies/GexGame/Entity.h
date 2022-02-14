@@ -1,31 +1,32 @@
 #pragma once
+ 
 #include "SceneNode.h"
-#include "Command.h"
-#include "CommandQueue.h"
 
 class Entity : public SceneNode
 {
-public:
+
+public: 
 	explicit			Entity(int hitPoints);
+
 	void				setVelocity(sf::Vector2f v);
 	void				setVelocity(float vx, float vy);
 	virtual void		accelerate(sf::Vector2f velocity);
 	virtual void		accelerate(float vx, float vy);
-	sf::Vector2f		getVelocity() const;
+	virtual void		hop(float x, float y);
+	sf::Vector2f		getVelocity() const; 
 
-	int					getHitPoints() const;
+	int					getHitpoints() const;
 	virtual void		damage(int points);
 	void				repair(int points);
-	void				destroy();
+	void				destroy(); 
 	virtual bool		isDestroyed() const;
-	virtual  void		remove();
+	virtual void		remove();
 
 protected:
-	virtual void		updateCurrent(sf::Time dt, CommandQueue& commands) override;
+	virtual void	updateCurrent(sf::Time dt, CommandQueue& commands) override;
 
 private:
-	sf::Vector2f		velocity;
-	int					hitPoints;
-
+	sf::Vector2f	velocity; 
+	int				hitPoints;
 };
 
