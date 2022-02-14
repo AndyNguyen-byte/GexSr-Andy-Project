@@ -1,5 +1,5 @@
 #include "PauseState.h"
-#include "Ultility.h"
+#include "Utility.h"
 #include "ResourceHolder.h"
 
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -9,12 +9,10 @@
 
 PauseState::PauseState(StateStack& stack, Context context)
     : State(stack, context)
-    , backgroundSprite()
     , pausedText()
     , instructionText()
 {
 	context.music->setPaused(true);
-
 
 	pausedText.setFont(context.fonts->get(FontID::Main));
 	pausedText.setString("Game Paused");
@@ -65,7 +63,7 @@ bool PauseState::handleEvent(const sf::Event& event)
 
 	if (event.key.code == sf::Keyboard::BackSpace)
 	{
-		requestStateClear();
+		requestStackClear();
 		requestStackPush(StateID::Menu);
 	}
 

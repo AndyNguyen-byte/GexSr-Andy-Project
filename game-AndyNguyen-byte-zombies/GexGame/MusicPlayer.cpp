@@ -6,8 +6,10 @@ MusicPlayer::MusicPlayer()
 	, filenames()
 	, volume(25)
 {
-	filenames[MusicID::MissionTheme] = "../Media/Music/MissionTheme.ogg";
-	filenames[MusicID::MenuTheme] = "../Media/Music/MenuTheme.ogg";
+
+
+	filenames[MusicID::TitleTheme] = "../Media/Music/dp_frogger.flac";
+	filenames[MusicID::GameTheme] = "../Media/Music/dp_frogger_tweener.flac";
 }
 
 void MusicPlayer::play(MusicID theme)

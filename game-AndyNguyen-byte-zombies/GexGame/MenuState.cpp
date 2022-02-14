@@ -1,6 +1,6 @@
 #include "MenuState.h"
 #include "State.h"
-#include "Ultility.h"
+#include "Utility.h"
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
 #include "MusicPlayer.h"
@@ -11,7 +11,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	: State(stack, context)
 	, optionsIndex(0)
 {
-	context.music->play(MusicID::MenuTheme);
+	context.music->play(MusicID::TitleTheme);
 
 	sf::Texture& texture = context.textures->get(TextureID::TitleScreen);
 
@@ -35,6 +35,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	centerOrigin(exitOption);
 	exitOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 30.f));
 	options.push_back(exitOption);
+
 
 	updateOptionText();
 }
