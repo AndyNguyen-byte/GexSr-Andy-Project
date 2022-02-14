@@ -1,133 +1,127 @@
 #include "PlayerControl.h"
+
 #include "Aircraft.h"
+#include "Actor.h"
 #include "Command.h"
 #include "CommandQueue.h"
-#include "Actor.h"
+
+#include <iostream> 
+#include "Frog.h"
 
 PlayerControl::PlayerControl()
+	: currentMissionStatus(MissionStatus::MissionRunning)
 {
-    initializeKeys();
-    initializeActions();
-
-    //set categories
-    for (auto& [action,cmd] : actionBindings) {
-        cmd.category = Category::Hero;
-    }
+	initializeKeys();
+	initializeActions();
 }
+
+void PlayerControl::initializeKeys()
+{
+	// Set initial key bindings
+
+	// arrows
+	keyBindings[sf::Keyboard::Left]		= Action::MoveLeft;
+	keyBindings[sf::Keyboard::Right]	= Action::MoveRight;
+	keyBindings[sf::Keyboard::Up]		= Action::MoveUp;
+	keyBindings[sf::Keyboard::Down]		= Action::MoveDown;
+
+	// AWSD
+	keyBindings[sf::Keyboard::A] = Action::MoveLeft;
+	keyBindings[sf::Keyboard::D] = Action::MoveRight;
+	keyBindings[sf::Keyboard::W] = Action::MoveUp;
+	keyBindings[sf::Keyboard::S] = Action::MoveDown;
+
+	keyBindings[sf::Keyboard::J] = Action::Jump;
+	keyBindings[sf::Keyboard::Space] = Action::Attack;
+	keyBindings[sf::Keyboard::F] = Action::ForceField;
+
+	 
+}
+
 
 void PlayerControl::handleEvent(const sf::Event& event, CommandQueue& commands)
 {
-    if (event.type == sf::Event::KeyPressed)
-    {
-        auto found = keyBindings.find(event.key.code);
-
-        if (found != keyBindings.end() && !isRealTimeAction(found->second))
-            commands.push(actionBindings[found->second]);
-    }
+	if (event.type == sf::Event::KeyPressed)
+	{
+		auto found = keyBindings.find(event.key.code);
+		
+		if ( found != keyBindings.end() && !isRealTimeAction(found->second) )
+			commands.push(actionBindings[found->second]);
+		
+	}
 }
 
 void PlayerControl::handleRealTimeInput(CommandQueue& commands)
 {
-    for (auto [key,action]:keyBindings)
-    {
-        if (sf::Keyboard::isKeyPressed(key) && isRealTimeAction(action))
-            commands.push(actionBindings[action]);
-    }
+
+	for (auto p : keyBindings)
+	{
+		if (sf::Keyboard::isKeyPressed(p.first) && isRealTimeAction(p.second))
+			commands.push(actionBindings[p.second]);
+	}
+
 }
+
 
 void PlayerControl::assignKey(Action action, sf::Keyboard::Key key)
 {
-    // remove all keys that already map to action
-    for (auto itr = keyBindings.begin(); itr != keyBindings.end();)
-    {
-        if (itr->second == action)
-            keyBindings.erase(itr++);
-        else
-            ++itr;
-    }
+	// remove all keys that already map to action
+	for (auto itr = keyBindings.begin(); itr != keyBindings.end();)
+	{
+		if (itr->second == action)
+			keyBindings.erase(itr++);
+		else
+			++itr;
+	}
 
-    // insert new binding
-    keyBindings[key] = action;
+	// insert new binding
+	keyBindings[key] = action;
 }
 
 sf::Keyboard::Key PlayerControl::getAssignedKey(Action action) const
 {
-    for (auto [key, boundAction] : keyBindings)
-    {
-        if (boundAction == action)
-            return key;
-    }
-    return sf::Keyboard::Unknown;
+	for (auto p : keyBindings)
+	{
+		if (p.second == action)
+			return p.first;
+	}
+	return sf::Keyboard::Unknown;
 }
 
 void PlayerControl::setMissionStatus(MissionStatus status)
 {
-    currentMissionStatus = status;
+	currentMissionStatus = status;
 }
 
 PlayerControl::MissionStatus PlayerControl::getMissionStatus() const
 {
-    return currentMissionStatus;
-}
-
-
-
-void PlayerControl::initializeKeys()
-{
-    //arrows
-    keyBindings[sf::Keyboard::Left]     = Action::MoveLeft;
-    keyBindings[sf::Keyboard::Right]    = Action::MoveRight;
-    keyBindings[sf::Keyboard::Up]       = Action::MoveUp;
-    keyBindings[sf::Keyboard::Down]     = Action::MoveDown;
-
-    //ASWD
-    keyBindings[sf::Keyboard::A]        = Action::MoveLeft;
-    keyBindings[sf::Keyboard::D]        = Action::MoveRight;
-    keyBindings[sf::Keyboard::W]        = Action::MoveUp;
-    keyBindings[sf::Keyboard::S]        = Action::MoveDown;
-
-    //projectiles
-    keyBindings[sf::Keyboard::Space]    = Action::Attack;
-    keyBindings[sf::Keyboard::K]        = Action::ForceField;
+	return currentMissionStatus;
 }
 
 void PlayerControl::initializeActions()
 {
-    const float speed = 200.f;
 
-    actionBindings[Action::MoveLeft].action = derivedAction<Actor>([=](Actor& n, sf::Time dt) {n.accelerate(-speed, 0.f); });
-    actionBindings[Action::MoveLeft].category = Category::Hero;
-
-    actionBindings[Action::MoveRight].action = derivedAction<Actor>([=](Actor& n, sf::Time dt) {n.accelerate(speed, 0.f); });
-    actionBindings[Action::MoveRight].category = Category::Hero;
-
-    actionBindings[Action::MoveUp].action = derivedAction<Actor>([=](Actor& n, sf::Time dt) {n.accelerate(0.f, -speed); });
-    actionBindings[Action::MoveUp].category = Category::Hero;
-
-    actionBindings[Action::MoveDown].action = derivedAction<Actor>([=](Actor& n, sf::Time dt) {n.accelerate(0.f, speed); });
-    actionBindings[Action::MoveDown].category = Category::Hero;
-
-    actionBindings[Action::Attack].action = derivedAction<Actor>([=](Actor& n, sf::Time dt) {n.attack(); });
-    actionBindings[Action::Attack].category = Category::Hero;
-
-    actionBindings[Action::ForceField].action = derivedAction<Actor>([=](Actor& n, sf::Time dt) {n.forceField(); });
-    actionBindings[Action::ForceField].category = Category::Hero;
-
-
+	actionBindings[Action::MoveLeft].action = derivedAction<Frog>([=](Frog& n, sf::Time dt) { n.hop(Frog::Direction::Left); });
+	actionBindings[Action::MoveLeft].category = Category::PlayerFrog;
+	
+	actionBindings[Action::MoveRight].action = derivedAction<Frog>([=](Frog& n, sf::Time dt) { n.hop(Frog::Direction::Right); });
+	actionBindings[Action::MoveRight].category = Category::PlayerFrog;
+	
+	actionBindings[Action::MoveUp].action = derivedAction<Frog>([=](Frog& n, sf::Time dt) { n.hop(Frog::Direction::Up); });
+	actionBindings[Action::MoveUp].category = Category::PlayerFrog;
+	
+	actionBindings[Action::MoveDown].action = derivedAction<Frog>([=](Frog& n, sf::Time dt) { n.hop(Frog::Direction::Down); });
+	actionBindings[Action::MoveDown].category = Category::PlayerFrog;
 }
 
 bool PlayerControl::isRealTimeAction(Action action)
 {
-    switch (action)
-    {
-    case PlayerControl::Action::MoveLeft:
-    case PlayerControl::Action::MoveRight:
-    case PlayerControl::Action::MoveUp:
-    case PlayerControl::Action::MoveDown:
-    case PlayerControl::Action::Attack:
-        return true;
-    default:
-        return false;
-    }
-    
+	switch (action)
+	{
+	case Action::Fire:
+		return true;
+
+	default:
+		return false;
+	}
 }

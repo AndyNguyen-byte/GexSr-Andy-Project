@@ -1,28 +1,40 @@
 #pragma once
+
 namespace sf {
 	class Texture;
 	class Font;
 }
+
 enum class TextureID
 {
+	Zombie1,
+	Zombie2,
+	Zombie3,
+	Zombie4,
+	Zombie5,
+	Hero2,
+
 	Entities,
 	Jungle,
-	Desert,
+	Road,
 	TitleScreen,
 	Explosion,
 	Particle,
 	FinishLine,
 
-	Road,
-	Hero2,
-	Zombie1,
-	Zombie2,
-	Zombie3,
-	Zombie4,
-	Zombie5
+	MissisleRefill,
+
+	Marsh,
+	Ground,
+
+	PlayerFrog,
+	BonusFrog,
+	FrogIcon,
+	Atlas,
+	
 };
 
-enum class FontID 
+enum class FontID
 {
 	Main
 };
@@ -35,17 +47,26 @@ enum class SoundEffectID
 	Explosion2,
 	LaunchMissile,
 	CollectPickup,
-	Button
+	Button,
+
+	FrogDie,
+	FrogJump,
+
 };
 
-enum class MusicID
+
+enum class  MusicID
 {
 	MenuTheme,
-	MissionTheme
+	MissionTheme,
+
+	TitleTheme,
+	GameTheme,
 };
 
-//forward declaration
-template<typename Resource, typename Id>
+
+// forward declaration
+template <typename Resource, typename Id>
 class ResourceHolder;
 
 using TextureHolder_t = ResourceHolder<sf::Texture, TextureID>;

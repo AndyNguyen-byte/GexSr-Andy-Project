@@ -1,4 +1,5 @@
 #pragma once
+
 #include <SFML/Window/Event.hpp>
 #include "Command.h"
 #include <map>
@@ -16,12 +17,10 @@ public:
 		MoveUp,
 		MoveDown,
 		Fire,
-		LauchMissle,
-
-
+		LaunchMissile,
 		Attack,
+		Jump,
 		ForceField,
-
 		ActionCount
 	};
 
@@ -31,31 +30,31 @@ public:
 		MissionSuccess,
 		MissionFailure
 	};
-	
 
 
 public:
 
-							PlayerControl();
-							PlayerControl(PlayerControl&) = delete;
-	
-	void					handleEvent(const sf::Event& event, CommandQueue& commands);
-	void					handleRealTimeInput(CommandQueue& commands);
+						PlayerControl();
+						PlayerControl(PlayerControl&) = delete;
 
-	void					assignKey(Action action, sf::Keyboard::Key key);
-	sf::Keyboard::Key		getAssignedKey(Action action) const;
+	void				handleEvent(const sf::Event& event, CommandQueue& commands);
+	void				handleRealTimeInput(CommandQueue& commands);
 
-	void					setMissionStatus(MissionStatus status);
-	MissionStatus			getMissionStatus() const;
+	void				assignKey(Action action, sf::Keyboard::Key key);
+	sf::Keyboard::Key	getAssignedKey(Action action) const;
+
+	void				setMissionStatus(MissionStatus status);
+	MissionStatus		getMissionStatus() const;
 
 private:
-	void					initializeKeys();
-	void					initializeActions();
-	static bool				isRealTimeAction(Action action);
+	void				initializeKeys();
+	void				initializeActions();
+	static bool			isRealTimeAction(Action action);
 
 private:
 	std::map<sf::Keyboard::Key, Action>		keyBindings;
 	std::map<Action, Command>				actionBindings;
 	MissionStatus							currentMissionStatus;
+
 };
 

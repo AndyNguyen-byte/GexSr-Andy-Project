@@ -1,6 +1,6 @@
 #include "Projectile.h"
 #include "DataTables.h"
-#include "Ultility.h"
+#include "Utility.h"
 #include "ResourceHolder.h"
 #include "Category.h"
 #include "EmitterNode.h"
@@ -13,18 +13,22 @@
 #include <iostream>
 
 
-namespace 
+namespace
 {
-    const auto Table = initializeProjectileData();
+    const auto TABLE = initializeProjectileData();
 }
 
+
 Projectile::Projectile(Type type, const TextureHolder_t& textures)
-    :Entity(1)
-    ,type(type)
-    ,sprite(textures.get(Table.at(type).texture),Table.at(type).textureRect)
-    ,targetDirection()
+    : Entity(1)
+    , type(type)
+    , sprite(textures.get(TABLE.at(type).texture), TABLE.at(type).textureRect)
+    , targetDirection()
+
 {
-    //Add particle system for missiles
+    centerOrigin(sprite);
+
+    // Add particle system for missiles
     if (isGuided())
     {
         std::unique_ptr<EmitterNode> smoke(new EmitterNode(Particle::Type::Smoke));
@@ -34,15 +38,14 @@ Projectile::Projectile(Type type, const TextureHolder_t& textures)
         std::unique_ptr<EmitterNode> propellant(new EmitterNode(Particle::Type::Propellant));
         propellant->setPosition(0.f, Projectile::getBoundingRect().height / 2.f);
         attachChild(std::move(propellant));
-    }
 
-    centerOrigin(sprite);
+    }
 }
 
 void Projectile::guideTowards(sf::Vector2f position)
 {
     assert(isGuided());
-    targetDirection = normalizeVector(position - getWorldPosition());
+    targetDirection = nomalizeVector(position - getWorldPosition());
 }
 
 bool Projectile::isGuided() const
@@ -65,12 +68,12 @@ sf::FloatRect Projectile::getBoundingRect() const
 
 float Projectile::getMaxSpeed() const
 {
-    return Table.at(type).speed;
+    return TABLE.at(type).speed;
 }
 
 int Projectile::getDamage() const
 {
-    return Table.at(type).damage;
+    return TABLE.at(type).damage;
 }
 
 void Projectile::updateCurrent(sf::Time dt, CommandQueue& commands)
@@ -80,15 +83,13 @@ void Projectile::updateCurrent(sf::Time dt, CommandQueue& commands)
     {
         const float approachRate = 200.f;
 
-        sf::Vector2f newVelocity = normalizeVector(approachRate * dt.asSeconds() * targetDirection + getVelocity());
+        sf::Vector2f newVelocity = nomalizeVector(approachRate * dt.asSeconds() * targetDirection + getVelocity());
         newVelocity *= getMaxSpeed();
         float angle = gex::atan2(newVelocity.y, newVelocity.x);
-
 
         setRotation(angle + 90.f);
         setVelocity(newVelocity);
     }
-
 
     Entity::updateCurrent(dt, commands);
 }

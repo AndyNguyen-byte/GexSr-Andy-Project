@@ -1,5 +1,7 @@
 #include "SceneNode.h"
 #include "Category.h"
+#include "Command.h"  
+#include "Utility.h"
 
 #include <algorithm>
 #include <cassert>
@@ -8,10 +10,9 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 SceneNode::SceneNode(Category::type category)
-    :parent(nullptr)
-    ,defauftCategory(category)
-{
-}
+    : parent(nullptr)
+    , defaultCategory(category)
+{}
 
 void SceneNode::attachChild(Ptr child)
 {
@@ -19,7 +20,7 @@ void SceneNode::attachChild(Ptr child)
     children.push_back(std::move(child));
 }
 
-SceneNode::Ptr SceneNode::dettachChild(const SceneNode& node)
+SceneNode::Ptr SceneNode::detatchCild(const SceneNode& node)
 {
     auto found = std::find_if(
         children.begin(),
@@ -35,11 +36,6 @@ SceneNode::Ptr SceneNode::dettachChild(const SceneNode& node)
     return result;
 }
 
-void SceneNode::update(sf::Time dt, CommandQueue& commands)
-{
-    updateCurrent(dt,commands);
-    updateChildren(dt,commands);
-}
 
 sf::Vector2f SceneNode::getWorldPosition() const
 {
@@ -52,23 +48,23 @@ sf::Transform SceneNode::getWorldTransform() const
 
     for (const SceneNode* node = this; node != nullptr; node = node->parent) {
         transform = node->getTransform() * transform;
-
     }
+
     return transform;
 }
 
 unsigned int SceneNode::getCategory() const
 {
-    return defauftCategory;
+    return defaultCategory;
 }
 
 void SceneNode::onCommand(const Command& command, sf::Time dt)
 {
-    //execute if category matches
+    // execute if category matches
     if (command.category & getCategory())
         command.action(*this, dt);
 
-    //recurse through all child nodes
+    // recurse through all child nodes
     for (auto& child : children)
         child->onCommand(command, dt);
 }
@@ -126,37 +122,44 @@ void SceneNode::removeWrecks()
 
     std::for_each(children.begin(), children.end(), std::mem_fn(&SceneNode::removeWrecks));
 }
+ 
+
+void SceneNode::update(sf::Time dt, CommandQueue& commands)
+{
+    updateCurrent(dt, commands);
+    updateChildren(dt, commands);
+}
+
 
 void SceneNode::updateCurrent(sf::Time dt, CommandQueue& commands)
 {
-    //virtual
-
+    // virtual do nothing in base class
 }
 
 void SceneNode::updateChildren(sf::Time dt, CommandQueue& commands)
 {
     for (auto& c : children)
-        c->update(dt,commands);
+        c->update(dt, commands);
 }
 
 void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    //get current transform
+    // get current transfrorm
     auto transform = getTransform();
 
-    //apply transform to states
+    // apply transform to states
     states.transform *= transform;
 
-    //draw
+    // draw 
     drawCurrent(target, states);
     drawChildren(target, states);
 
-    //drawBoundingBox(target, states);
+    // drawBoundingBox(target, states);
 }
 
 void SceneNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    //virtual
+    // virtual 
 }
 
 void SceneNode::drawChildren(sf::RenderTarget& target, sf::RenderStates states) const
@@ -165,12 +168,14 @@ void SceneNode::drawChildren(sf::RenderTarget& target, sf::RenderStates states) 
         c->draw(target, states);
 }
 
+
 bool collision(const SceneNode& lhs, const SceneNode& rhs)
 {
     return lhs.getBoundingRect().intersects(rhs.getBoundingRect());
 }
 
-bool distance(const SceneNode& lhs, const SceneNode& rhs)
+
+float distance(const SceneNode& lhs, const SceneNode& rhs)
 {
     return length(lhs.getWorldPosition() - rhs.getWorldPosition());
 }

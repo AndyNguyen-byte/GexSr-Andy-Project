@@ -5,12 +5,13 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
+
 class Aircraft;
+
 
 class Pickup : public Entity
 {
 public:
-
 	enum class Type
 	{
 		HealthRefill,
@@ -21,19 +22,19 @@ public:
 	};
 
 public:
-	Pickup(Type type, const TextureHolder_t& textures);
-	~Pickup() = default;
+					Pickup(Type type, const TextureHolder_t& textures);
+					~Pickup() = default;
 
-	unsigned int		getCategory() const override;
-	sf::FloatRect		getBoundingRect() const override;
+	unsigned int	getCategory() const override;
+	sf::FloatRect	getBoundingRect() const override;
 
-	void						apply(Aircraft& player);
-
-private:
-	void						drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void			apply(Aircraft & player);
 
 private:
-	sf::Sprite					sprite;
-	Type						type;
+	void			drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const override;
+
+private:
+	sf::Sprite		sprite;
+	Type			type;
 };
 
