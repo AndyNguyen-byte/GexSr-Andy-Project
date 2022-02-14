@@ -1,6 +1,7 @@
 #include "Command.h"
 
+
 Command::Command()
-	:action()
+	: action()
 	, category(Category::None)
 {}

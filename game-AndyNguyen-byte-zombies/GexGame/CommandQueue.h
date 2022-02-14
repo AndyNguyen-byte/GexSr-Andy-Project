@@ -1,15 +1,16 @@
 #pragma once
+
 #include "Command.h"
 #include <queue>
+
 class CommandQueue
 {
 public:
-	void push(const Command& command);
+	void	push(const Command& command);
 	Command pop();
-	bool isEmpty() const;
+	bool	isEmpty() const;
 
 private:
-	std::queue<Command> queue;
-	
+	std::queue<Command>	queue;
 };
 

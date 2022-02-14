@@ -22,18 +22,27 @@ public:
 		Zombie2,
 		Zombie3,
 		Zombie4,
-		Zombie5
-	};
+		Zombie5,
 
+		Frog
+
+	};
+	
 	enum class State {
 		Attack,
 		Dead,
-		Idle,
+		Jump,
 		Rise,
 		Walk,
 		Run,
-		Jump,
-		count
+
+		HopLeft,
+		HopRight,
+		HopUp,
+		HopDown,
+		Idle,
+		Die,
+		Count
 	};
 
 	enum class Direction
@@ -54,6 +63,7 @@ public:
 	float			getMaxSpeed() const;
 	void			accelerate(sf::Vector2f velocity) override;
 	void			accelerate(float vx, float vy) override;
+	void			hop(float x, float y) override;
 	bool			isMarkedForRemoval() const override;
 	void			damage(int points) override;
 

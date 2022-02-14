@@ -1,35 +1,34 @@
 #include "Application.h"
 #include "State.h"
 
-#include "PauseState.h"
-#include "GameState.h"
 #include "TitleState.h"
+#include "GameState.h"
 #include "MenuState.h"
+#include "PauseState.h"
 #include "GameOverState.h"
 
-#include <iostream>
-
-const sf::Time Application::TIME_PER_FRAME = sf::seconds((1.f / 60.f));
+const sf::Time	Application::TIME_PER_FRAME = sf::seconds((1.f / 60.f));
 
 Application::Application()
-	:window(sf::VideoMode(1024,768),"GEX Killer Planes",sf::Style::Close)
-	,textures()
-	,fonts()
-	,player()
-	,stateStack(State::Context(window,textures,fonts,player,music,sound))
-	,statisticsText()
-	,statisticsUpdateTime()
-	,statisticNumFrames(0)
-{
+	: window(sf::VideoMode(578.f, 1024.f), "Flappy Turtle GEX", sf::Style::Close)
+	, textures()
+ 	, fonts()
+	, player()
+	, stateStack(State::Context(window, textures, fonts, player, music, sound))
+	, statisticsText()
+	, statisticsUpdateTime()
+	, statisticsNumFrames(0)
+{ 
 
 	window.setKeyRepeatEnabled(false);
 
-	fonts.load(FontID::Main,"../Media/Media/Sansation.ttf");
-	textures.load(TextureID::TitleScreen,"../Media/Media/Textures/GEX.png");
+	fonts.load(FontID::Main, "../Media/Sansation.ttf");
+	textures.load(TextureID::TitleScreen, "../Media/Textures/FroggerTitle.png");
 
 	statisticsText.setFont(fonts.get(FontID::Main));
 	statisticsText.setPosition(15.0f, 15.0f);
 	statisticsText.setCharacterSize(15);
+	
 
 	registerStates();
 	stateStack.pushState(StateID::Title);
@@ -52,10 +51,14 @@ void Application::run()
 			processInput();
 			update(TIME_PER_FRAME);
 
-
+			// Check inside this loop, 
+			// because stack might be empty 
+			// before update() call
 			if (stateStack.isEmpty())
 				window.close();
+
 		}
+
 		updateStatistics(elapsedTime);
 		render();
 	}
@@ -92,15 +95,14 @@ void Application::render()
 void Application::updateStatistics(sf::Time dt)
 {
 	statisticsUpdateTime += dt;
-	statisticNumFrames += 1;
+	statisticsNumFrames += 1;
 	if (statisticsUpdateTime >= sf::seconds(1.0f))
 	{
-		statisticsText.setString("FPS: " + std::to_string(statisticNumFrames));
+		statisticsText.setString("FPS: " + std::to_string(statisticsNumFrames));
 
 		statisticsUpdateTime -= sf::seconds(1.0f);
-		statisticNumFrames = 0;
+		statisticsNumFrames = 0;
 	}
-
 }
 
 void Application::registerStates()

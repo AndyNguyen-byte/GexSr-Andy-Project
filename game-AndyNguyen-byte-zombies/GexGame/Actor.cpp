@@ -2,7 +2,7 @@
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
 #include "JsonFrameParser.h"
-#include "Ultility.h"
+#include "Utility.h"
 #include "DataTables.h"
 #include "TextNode.h"
 
@@ -13,7 +13,6 @@
 namespace
 {
 	const std::map<Actor::Type, ActorData> TABLE = initializeActorData();
-	auto tmp = TABLE.at(Actor::Type::Hero2); 
 }
 
 Actor::Actor(Type type, const TextureHolder_t& textures, const FontHolder_t& fonts)
@@ -34,8 +33,9 @@ Actor::Actor(Type type, const TextureHolder_t& textures, const FontHolder_t& fon
 		animations[a.first] = a.second;
 	}
 
-	if (Actor::getCategory() == Category::Zombie)
-		state = State::Rise;  // zombies spawn in rise state
+
+	//if (Actor::getCategory() == Category::Frog)
+	//	state = State::Idle;
 
 	sprite.setTextureRect(sf::IntRect());
 	centerOrigin(sprite);
@@ -126,6 +126,10 @@ void Actor::accelerate(float vx, float vy)
 	accelerate(sf::Vector2f(vx, vy));
 }
 
+void Actor::hop(float x, float y)
+{
+}
+
 bool Actor::isMarkedForRemoval() const
 {
 	return false; // (state_ == State::Dead && animations_.at(state_).isFinished());
@@ -162,7 +166,6 @@ int Actor::attackPoints() const
 
 void Actor::updateStates()
 {
-
 	if (isDestroyed())
 		state = State::Dead;
 
@@ -212,7 +215,7 @@ void Actor::updateCurrent(sf::Time dt, CommandQueue& commands)
 
 	auto rec = animations.at(state).update(dt);
 
-	//std::cout << animations.at(state).currentFrame << "\n";
+	// std::cout << animations.at(state).currentFrame << "\n";
 	if (state != State::Dead)
 	{
 		if (direction == Direction::Left && getVelocity().x > 10)
@@ -255,7 +258,7 @@ void Actor::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Actor::updateTexts()
 {
-	healthDisplay->setText(std::to_string(getHitPoints()) + "HP");
+	healthDisplay->setText(std::to_string(getHitpoints()) + "HP");
 	healthDisplay->setPosition(0.f, 70.f);
 	healthDisplay->setRotation(-getRotation());
 }

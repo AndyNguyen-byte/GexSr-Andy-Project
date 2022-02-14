@@ -1,5 +1,7 @@
 #pragma once
-namespace Category 
+
+
+namespace Category
 {
 	enum type
 	{
@@ -11,13 +13,26 @@ namespace Category
 		Pickup				= 1 << 4,
 		AlliedProjectile	= 1 << 5,
 		EnemyProjectile		= 1 << 6,
-		ParticleSystem      = 1 << 8,
+		ParticleSystem		= 1 << 8,
 		SoundEffect			= 1 << 9,
 		Zombie				= 1 << 10,
 		Hero				= 1 << 11,
 
-		Aircraft			= PlayerAircraft | AlliedAircraft | EnemyAircraft,
-		Projectile			= AlliedProjectile | EnemyProjectile,
-		SpaceJunk			= Projectile | Pickup | EnemyAircraft,
+
+		PlayerFrog			= 1 << 12,
+		BonusFrog			= 1 << 13,
+		LilyPad				= 1 << 14,
+		Vehicle				= 1 << 15,
+		RiverEntities		= 1 << 16,
+
+		Ground				= 1 << 17,
+
+
+
+		Aircraft = PlayerAircraft | AlliedAircraft | EnemyAircraft,
+		Projectile = AlliedProjectile | EnemyProjectile,
+		SpaceJunk = Projectile | Pickup | EnemyAircraft | Vehicle | RiverEntities,
+	
 	};
 }
+
