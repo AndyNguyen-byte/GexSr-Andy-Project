@@ -1,6 +1,6 @@
 #include "TitleState.h"
 #include "State.h"
-#include "Ultility.h"
+#include "Utility.h"
 #include "ResourceHolder.h"
 #include "ResourceIdentifiers.h"
 
