@@ -20,6 +20,7 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include <array>
+#include "Turtle.h"
 
 
 namespace sf {
@@ -46,8 +47,6 @@ private:
 	void			loadTextures();
 	void			buildScene();
 
-	void			makeLilyPad(float x);
-	void			buildLilyPad();
 	void			resetGroundPos();
 	void			makeVehicle(Vehicles::Type type, float x, float y);
 	void			makeRiverEntities(RiverEntities::Type type,float x,float y);
@@ -58,8 +57,6 @@ private:
 	void			adaptPlayerVelocity();
 
 	void			spawnEnemies();
-	void			addEnemies();
-	void			addEnemy(Actor::Type type, float relX, float relY);
 	
 	sf::FloatRect	getViewBounds() const;
 	sf::FloatRect	getBattlefield() const;
@@ -109,16 +106,13 @@ private:
 	sf::Vector2f						spawnPosition;
 	float								scrollSpeed;
 
-	Frog*								playerAircraft;
+	Turtle*								playerAircraft;
 	Ground*								ground1;
 	Ground*								ground2;
 
 	
 	int									numberOfLilypadsOccupied = 0;
-	int									frogLives = 9999;
-
-	bool								isDrowning;
-	bool								isInBounds;
+	int									frogLives = 2;
 
 	std::vector<SpawnPoint>				enemySpawnPoints;
 	std::vector<Actor*>					activeEnemies;

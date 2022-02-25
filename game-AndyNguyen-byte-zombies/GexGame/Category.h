@@ -26,6 +26,7 @@ namespace Category
 		RiverEntities		= 1 << 16,
 
 		Ground				= 1 << 17,
+		Turtle				= 1 << 18,
 
 
 

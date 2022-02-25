@@ -39,13 +39,11 @@ World::World(sf::RenderTarget& outputTarget, FontHolder_t& fonts, SoundPlayer& s
 void World::update(sf::Time dt)
 {
 	// sroll the world
-	// worldView.move(0.f, scrollSpeed * dt.asSeconds());
-	playerAircraft->setVelocity(0.f, 0.f);
+	playerAircraft->setVelocity(0.f, -5.f);
 
 	resetGroundPos();
 
 	destroyEntitiesOutOfView();
-	guideMissiles();
 
 	// apply all command
 	while (!commands.isEmpty())
@@ -53,14 +51,8 @@ void World::update(sf::Time dt)
 	
 	adaptPlayerVelocity();
 
-	checkFrogPos();
 	handleCollisions();
-	if (isDrowning) {
-		killFrog();
-	}
-	if (!isInBounds) {
-		killFrog();
-	}
+
 	
 	sceneGraph.removeWrecks();
 	spawnEnemies();
@@ -120,17 +112,10 @@ void World::loadTextures()
 
 	textures.load(TextureID::Atlas, "../Media/Textures/Atlas.png");
 	textures.load(TextureID::Marsh, "../Media/Textures/BackGround1.png");
+	textures.load(TextureID::Turtle1, "../Media/Textures/Turtle1.png");
 
 	textures.load(TextureID::MissisleRefill, "../Media/Textures/MissileRefill.png");
 	textures.load(TextureID::Ground, "../Media/Textures/Ground.png");
-
-	/*textures.load(TextureID::Zombie1, "../Media/Textures/Zombie1.png");
-	textures.load(TextureID::Zombie2, "../Media/Textures/Zombie2.png");
-	textures.load(TextureID::Zombie3, "../Media/Textures/Zombie3.png");
-	textures.load(TextureID::Zombie4, "../Media/Textures/Zombie4.png");
-	textures.load(TextureID::Zombie5, "../Media/Textures/Zombie5.png");
-	textures.load(TextureID::Hero2, "../Media/Textures/hero2.png");
-	textures.load(TextureID::Road, "../Media/Textures/Road.png");*/
 
 }
 
@@ -170,15 +155,13 @@ void World::buildScene()
 	//sceneLayers[LowerAir]->attachChild(std::move(propellantNode));
 
 
-	// Add player's frog
-	auto leader = std::make_unique<Frog>(Frog::Type::PlayerFrog, textures, fonts);
+	// Add player's turtle
+	auto leader = std::make_unique<Turtle>(Turtle::Type::NormalTurtle, textures, fonts);
 	playerAircraft = leader.get();
-	playerAircraft->setPosition(spawnPosition.x,spawnPosition.y + worldView.getSize().y / 2.f);
-	playerAircraft->setVelocity(40.f, scrollSpeed);
+	playerAircraft->setPosition(spawnPosition.x,spawnPosition.y);
+	playerAircraft->setVelocity(0.f,0.f);
 	sceneLayers[UpperAir]->attachChild(std::move(leader));
 
-	//Add Lily Pads
-	buildLilyPad();
 
 	auto Ground1 = std::make_unique<Ground>(textures);
 	ground1 = Ground1.get();
@@ -193,22 +176,6 @@ void World::buildScene()
 	sceneLayers[LowerAir]->attachChild(std::move(Ground2));
 }
 
-void World::makeLilyPad(float x)
-{
-	auto lilypad = std::make_unique<Lilypad>(textures);
-	lilypad->setPosition(TITLE_WIDTH * x, TITLE_HEIGHT * 2.5);
-	sceneLayers[LowerAir]->attachChild(std::move(lilypad));
-}
-
-void World::buildLilyPad()
-{
-	// add lilypad
-	makeLilyPad(1.05);
-	makeLilyPad(4);
-	makeLilyPad(7);
-	makeLilyPad(10);
-	makeLilyPad(13);
-}
 
 void World::resetGroundPos()
 {
@@ -242,8 +209,7 @@ void World::makeRiverEntities(RiverEntities::Type type, float x, float y)
 
 void World::checkFrogPos()
 {
-	isDrowning = playerAircraft->isOnRiver();
-	isInBounds = playerAircraft->isInBounds();
+
 }
 
 void World::killFrog()
@@ -296,35 +262,6 @@ void World::spawnEnemies()
 
  }
 
-void World::addEnemies()
-{
-	
-
-	addEnemy(Actor::Type::Zombie1, -250.f, 200.f);
-	addEnemy(Actor::Type::Zombie1, 0.f, 200.f);
-	addEnemy(Actor::Type::Zombie1, 250.f, 200.f);
-	addEnemy(Actor::Type::Zombie2, -250.f, 600.f);
-	addEnemy(Actor::Type::Zombie3, 0.f, 600.f);
-	addEnemy(Actor::Type::Zombie2, 250.f, 600.f);
-	addEnemy(Actor::Type::Zombie3, -70.f, 400.f);
-	addEnemy(Actor::Type::Zombie1, 70.f, 400.f);
-	addEnemy(Actor::Type::Zombie3, -70.f, 800.f);
-	addEnemy(Actor::Type::Zombie4, 70.f, 800.f);
-	addEnemy(Actor::Type::Zombie5, -170.f, 850.f);
-	addEnemy(Actor::Type::Zombie4, 170.f, 850.f);
-
-	std::sort(enemySpawnPoints.begin(), enemySpawnPoints.end(),
-		[](SpawnPoint lhs, SpawnPoint rhs)
-		{
-			return lhs.y < rhs.y;
-		});
-}
-
-void World::addEnemy(Actor::Type type, float relX, float relY)
-{
-	SpawnPoint spawn(type, spawnPosition.x + relX, spawnPosition.y - relY);
-	enemySpawnPoints.push_back(spawn);
-}
 
 sf::FloatRect World::getViewBounds() const
 {
@@ -425,7 +362,6 @@ void World::handleCollisions()
 				lilypad.addFrog();
 				lilypad.setOccupied(true);
 				frog.setPosition(TITLE_WIDTH * 7, TITLE_HEIGHT * 15);
-				isDrowning = false;
 			}
 			else {
 				killFrog();
@@ -443,7 +379,6 @@ void World::handleCollisions()
 			auto& frog = static_cast<Frog&>(*(pair.first));
 			auto& riverEntity = static_cast<RiverEntities&>(*(pair.second));
 
-			isDrowning = false;
 
 			frog.setVelocity(riverEntity.getVelocity());
 		}

@@ -1,1 +1,22 @@
-﻿  GexGame.vcxproj -> D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\x64\Debug\GexGame.exe
+﻿  Turtle.cpp
+D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\Turtle.cpp(28,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\Turtle.cpp(28,57): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\Turtle.cpp(63,50): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\Turtle.cpp(63,40): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+  GexGame.vcxproj -> D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\x64\Debug\GexGame.exe

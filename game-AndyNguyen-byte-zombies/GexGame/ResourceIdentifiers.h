@@ -26,6 +26,7 @@ enum class TextureID
 
 	Marsh,
 	Ground,
+	Turtle1,
 
 	PlayerFrog,
 	BonusFrog,

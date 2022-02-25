@@ -7,6 +7,7 @@
 
 #include <iostream> 
 #include "Frog.h"
+#include "Turtle.h"
 
 PlayerControl::PlayerControl()
 	: currentMissionStatus(MissionStatus::MissionRunning)
@@ -19,21 +20,9 @@ void PlayerControl::initializeKeys()
 {
 	// Set initial key bindings
 
-	// arrows
-	keyBindings[sf::Keyboard::Left]		= Action::MoveLeft;
-	keyBindings[sf::Keyboard::Right]	= Action::MoveRight;
-	keyBindings[sf::Keyboard::Up]		= Action::MoveUp;
-	keyBindings[sf::Keyboard::Down]		= Action::MoveDown;
-
-	// AWSD
-	keyBindings[sf::Keyboard::A] = Action::MoveLeft;
-	keyBindings[sf::Keyboard::D] = Action::MoveRight;
-	keyBindings[sf::Keyboard::W] = Action::MoveUp;
-	keyBindings[sf::Keyboard::S] = Action::MoveDown;
 
 	keyBindings[sf::Keyboard::J] = Action::Jump;
-	keyBindings[sf::Keyboard::Space] = Action::Attack;
-	keyBindings[sf::Keyboard::F] = Action::ForceField;
+	keyBindings[sf::Keyboard::Space] = Action::Jump;
 
 	 
 }
@@ -99,19 +88,9 @@ PlayerControl::MissionStatus PlayerControl::getMissionStatus() const
 }
 
 void PlayerControl::initializeActions()
-{
-
-	actionBindings[Action::MoveLeft].action = derivedAction<Frog>([=](Frog& n, sf::Time dt) { n.hop(Frog::Direction::Left); });
-	actionBindings[Action::MoveLeft].category = Category::PlayerFrog;
-	
-	actionBindings[Action::MoveRight].action = derivedAction<Frog>([=](Frog& n, sf::Time dt) { n.hop(Frog::Direction::Right); });
-	actionBindings[Action::MoveRight].category = Category::PlayerFrog;
-	
-	actionBindings[Action::MoveUp].action = derivedAction<Frog>([=](Frog& n, sf::Time dt) { n.hop(Frog::Direction::Up); });
-	actionBindings[Action::MoveUp].category = Category::PlayerFrog;
-	
-	actionBindings[Action::MoveDown].action = derivedAction<Frog>([=](Frog& n, sf::Time dt) { n.hop(Frog::Direction::Down); });
-	actionBindings[Action::MoveDown].category = Category::PlayerFrog;
+{	
+	actionBindings[Action::Jump].action = derivedAction<Turtle>([=](Turtle& n, sf::Time dt) { n.hop(Turtle::Direction::Up); });
+	actionBindings[Action::Jump].category = Category::Turtle;
 }
 
 bool PlayerControl::isRealTimeAction(Action action)

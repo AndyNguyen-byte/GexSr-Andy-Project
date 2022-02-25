@@ -184,6 +184,7 @@
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="TextNode.cpp" />
     <ClCompile Include="TitleState.cpp" />
+    <ClCompile Include="Turtle.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="Vehicles.cpp" />
     <ClCompile Include="World.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="StateStack.h" />
     <ClInclude Include="TextNode.h" />
     <ClInclude Include="TitleState.h" />
+    <ClInclude Include="Turtle.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Vehicles.h" />
     <ClInclude Include="World.h" />

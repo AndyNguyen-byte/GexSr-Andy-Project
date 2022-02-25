@@ -7,6 +7,7 @@
 #include "Particle.h"
 #include "Actor.h"
 #include "Animation2.h"
+#include "Turtle.h"
 #include "Lilypad.h"
 #include "Vehicles.h"
 #include"RiverEntities.h"
@@ -78,6 +79,14 @@ struct FrogData
 	std::vector<Direction>				directions;
 };
 
+struct TurtleData
+{
+	int						hitpoint;
+	TextureID				texture;
+	sf::IntRect				textureRect;
+	bool					hasFlyAnimation{ false };
+};
+
 struct LilyPadData
 {
 	TextureID							texture;
@@ -106,6 +115,8 @@ std::map<Frog::Type, FrogData>							initializeFrogData();
 std::map<Lilypad::State, LilyPadData>					initializeLilyPadData();
 std::map<Vehicles::Type, VehicleData>					initializeVehicleData();
 std::map<RiverEntities::Type, RiverEntitiesData>		initializeRiverEntitiesData();
+
+std::map<Turtle::Type, TurtleData>						initalizeTurtleData();
 
 std::map<Aircraft::Type, AircraftData>					initalizeAircraftData();
 std::map<Projectile::Type, ProjectileData>				initializeProjectileData();

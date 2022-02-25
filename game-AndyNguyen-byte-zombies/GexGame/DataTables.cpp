@@ -308,6 +308,19 @@ std::map<RiverEntities::Type, RiverEntitiesData> initializeRiverEntitiesData()
 	return data;
 }
 
+std::map<Turtle::Type, TurtleData> initalizeTurtleData()
+{
+	std::map<Turtle::Type,TurtleData> data;
+
+	// Turtle Data
+	data[Turtle::Type::NormalTurtle].hitpoint = 100;
+	data[Turtle::Type::NormalTurtle].texture = TextureID::Turtle1;
+	data[Turtle::Type::NormalTurtle].hasFlyAnimation = true;
+
+
+	return data;
+}
+
 std::map<Aircraft::Type, AircraftData> initalizeAircraftData()
 {
     std::map<Aircraft::Type, AircraftData> data;
