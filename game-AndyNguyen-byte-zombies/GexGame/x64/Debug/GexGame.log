@@ -1,4 +1,38 @@
-﻿  Turtle.cpp
+﻿  Actor.cpp
+  Aircraft.cpp
+  Application.cpp
+D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\Application.cpp(13,32): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\Application.cpp(13,25): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+  Command.cpp
+  CommandQueue.cpp
+  DataTables.cpp
+  EmitterNode.cpp
+  Entity.cpp
+  Frog.cpp
+  GameOverState.cpp
+  GameState.cpp
+  Ground.cpp
+  Lilypad.cpp
+  MenuState.cpp
+  MusicPlayer.cpp
+  ParticleNode.cpp
+  PauseState.cpp
+  Pickup.cpp
+  PlayerControl.cpp
+  Projectile.cpp
+  Generating Code...
+  Compiling...
+  RiverEnitites.cpp
+  SceneNode.cpp
+  SoundNode.cpp
+  SoundPlayer.cpp
+  Source.cpp
+  SpriteNode.cpp
+  State.cpp
+  StateStack.cpp
+  TextNode.cpp
+  TitleState.cpp
+  Turtle.cpp
 D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\Turtle.cpp(28,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
@@ -19,4 +53,8 @@ D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\Turtle.c
           [
               T=int
           ]
+  Vehicles.cpp
+  World.cpp
+D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\World.cpp(97,9): warning C4804: '<=': unsafe use of type 'bool' in operation
+  Generating Code...
   GexGame.vcxproj -> D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\x64\Debug\GexGame.exe
