@@ -171,6 +171,8 @@
     <ClCompile Include="ParticleNode.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Pickup.cpp" />
+    <ClCompile Include="Pillar.cpp" />
+    <ClCompile Include="PillarGroup.cpp" />
     <ClCompile Include="PlayerControl.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -215,6 +217,8 @@
     <ClInclude Include="ParticleNode.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="Pickup.h" />
+    <ClInclude Include="Pillar.h" />
+    <ClInclude Include="PillarGroup.h" />
     <ClInclude Include="PlayerControl.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="Projectile.h" />

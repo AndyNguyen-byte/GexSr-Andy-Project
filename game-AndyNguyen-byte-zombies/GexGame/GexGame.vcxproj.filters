@@ -132,6 +132,12 @@
     <ClCompile Include="Turtle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pillar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PillarGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility.h">
@@ -267,6 +273,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Turtle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pillar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PillarGroup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -16,9 +16,9 @@
 
 const float TITLE_HEIGHT = 1024 / 16;
 const float TITLE_WIDTH = 578 / 15;
-const float GRAVITY = 5000.f;
-const float FLYING_SPEED = -5000.f;
-const float FLYING_DURATION = 0.30f;
+const float GRAVITY = 350.f;
+const float FLYING_SPEED = -500.f;
+const float FLYING_DURATION = 0.25f;
 
 Turtle::Turtle(Type type, const TextureHolder_t& textures, const FontHolder_t& fonts)
 	:Entity(100)
@@ -111,7 +111,8 @@ void Turtle::hop(Direction hopDirection)
 	{
 		case Direction::Up:
 			direction = Direction::Up;
-			_movementClock.restart();;
+			_movementClock.restart();
+			setVelocity(0.f, 0.f);
 			state = State::Flying;
 			break;
 		default:

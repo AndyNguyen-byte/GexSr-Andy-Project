@@ -313,10 +313,24 @@ std::map<Turtle::Type, TurtleData> initalizeTurtleData()
 	std::map<Turtle::Type,TurtleData> data;
 
 	// Turtle Data
-	data[Turtle::Type::NormalTurtle].hitpoint = 100;
+	data[Turtle::Type::NormalTurtle].hitpoint = 1;
 	data[Turtle::Type::NormalTurtle].texture = TextureID::Turtle1;
 	data[Turtle::Type::NormalTurtle].hasFlyAnimation = true;
 
+
+	return data;
+}
+
+std::map<Pillar::Type, PillarData> initalizePillarData()
+{
+	std::map<Pillar::Type, PillarData> data;
+
+	data[Pillar::Type::PillarDown].texture = TextureID::PillarDown1;
+
+	data[Pillar::Type::PillarUp].texture = TextureID::PillarUp1;
+
+	data[Pillar::Type::PillarInvisible].texture = TextureID::PillarDown1;
+	data[Pillar::Type::PillarInvisible].color = sf::Color(0,0,0,0);
 
 	return data;
 }

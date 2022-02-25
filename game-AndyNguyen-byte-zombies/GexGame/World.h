@@ -50,8 +50,10 @@ private:
 	void			resetGroundPos();
 	void			makeVehicle(Vehicles::Type type, float x, float y);
 	void			makeRiverEntities(RiverEntities::Type type,float x,float y);
+	void			makePillarChunk(float y);
+	void			spawnPillars(sf::Time dt);
 	void			checkFrogPos();
-	void			killFrog();
+	void			killTurtle();
 
 	void			adaptPlayerPosition();
 	void			adaptPlayerVelocity();
@@ -110,6 +112,9 @@ private:
 	Ground*								ground1;
 	Ground*								ground2;
 
+	sf::Time							spawnTimeCountDown1 = sf::seconds(1.f);
+
+	sf::Time							pillarSpawnRate = sf::seconds(2.5f);
 	
 	int									numberOfLilypadsOccupied = 0;
 	int									frogLives = 2;

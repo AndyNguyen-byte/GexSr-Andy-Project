@@ -19,6 +19,7 @@
 #include <functional>
 #include <map>
 #include "Frog.h"
+#include "Pillar.h"
 
 
 struct Direction
@@ -87,6 +88,12 @@ struct TurtleData
 	bool					hasFlyAnimation{ false };
 };
 
+struct PillarData
+{
+	sf::Color				color;
+	TextureID				texture;
+};
+
 struct LilyPadData
 {
 	TextureID							texture;
@@ -117,6 +124,7 @@ std::map<Vehicles::Type, VehicleData>					initializeVehicleData();
 std::map<RiverEntities::Type, RiverEntitiesData>		initializeRiverEntitiesData();
 
 std::map<Turtle::Type, TurtleData>						initalizeTurtleData();
+std::map<Pillar::Type, PillarData>						initalizePillarData();
 
 std::map<Aircraft::Type, AircraftData>					initalizeAircraftData();
 std::map<Projectile::Type, ProjectileData>				initializeProjectileData();

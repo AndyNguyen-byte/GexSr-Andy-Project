@@ -27,12 +27,14 @@ namespace Category
 
 		Ground				= 1 << 17,
 		Turtle				= 1 << 18,
+		Pillar				= 1 << 19,
+		ScorePillar			= 1 << 20,
 
 
 
 		Aircraft = PlayerAircraft | AlliedAircraft | EnemyAircraft,
 		Projectile = AlliedProjectile | EnemyProjectile,
-		SpaceJunk = Projectile | Pickup | EnemyAircraft | Vehicle | RiverEntities,
+		SpaceJunk = Projectile | Pickup | EnemyAircraft | Vehicle | RiverEntities | Pillar | ScorePillar,
 	
 	};
 }

@@ -8,6 +8,8 @@
 
 #include <algorithm>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include "Pillar.h"
+#include "PillarGroup.h"
 
 const float TITLE_HEIGHT = 1024 / 16;
 const float TITLE_WIDTH = 578 / 15;
@@ -39,7 +41,6 @@ World::World(sf::RenderTarget& outputTarget, FontHolder_t& fonts, SoundPlayer& s
 void World::update(sf::Time dt)
 {
 	// sroll the world
-	playerAircraft->setVelocity(0.f, -5.f);
 
 	resetGroundPos();
 
@@ -53,9 +54,8 @@ void World::update(sf::Time dt)
 
 	handleCollisions();
 
-	
 	sceneGraph.removeWrecks();
-	spawnEnemies();
+	spawnPillars(dt);
 
 	sceneGraph.update(dt, commands); 
 	adaptPlayerPosition(); 
@@ -71,7 +71,7 @@ void World::updateSounds()
 
 void World::draw()
 {
-	if (PostEffect::isSupported())
+	if (false && PostEffect::isSupported())
 	{
 		sceneTexture.clear();
 		sceneTexture.setView(worldView);
@@ -113,6 +113,8 @@ void World::loadTextures()
 	textures.load(TextureID::Atlas, "../Media/Textures/Atlas.png");
 	textures.load(TextureID::Marsh, "../Media/Textures/BackGround1.png");
 	textures.load(TextureID::Turtle1, "../Media/Textures/Turtle1.png");
+	textures.load(TextureID::PillarUp1, "../Media/Textures/PillarUp.png");
+	textures.load(TextureID::PillarDown1, "../Media/Textures/PillarDown.png");
 
 	textures.load(TextureID::MissisleRefill, "../Media/Textures/MissileRefill.png");
 	textures.load(TextureID::Ground, "../Media/Textures/Ground.png");
@@ -174,6 +176,12 @@ void World::buildScene()
 	ground2->setPosition(TITLE_WIDTH * 20, TITLE_HEIGHT * 15);
 	ground2->setVelocity(-3 * TITLE_WIDTH, 0);
 	sceneLayers[LowerAir]->attachChild(std::move(Ground2));
+
+	/*auto pillar = std::make_unique<Pillar>(Pillar::Type::PillarDown, textures);
+	pillar->setPosition(TITLE_WIDTH * 15, TITLE_HEIGHT * 5);
+	pillar->setVelocity(-3 * TITLE_WIDTH, 0);
+	sceneLayers[LowerAir]->attachChild(std::move(pillar));*/
+
 }
 
 
@@ -207,12 +215,32 @@ void World::makeRiverEntities(RiverEntities::Type type, float x, float y)
 	sceneLayers[LowerAir]->attachChild(std::move(river));
 }
 
+void World::makePillarChunk(float y)
+{
+	auto pillarChunk = std::make_unique<PillarGroup>(textures);
+	pillarChunk->setPosition(TITLE_WIDTH * 17, TITLE_HEIGHT * y);
+	sceneLayers[LowerAir]->attachChild(std::move(pillarChunk));
+}
+
+void World::spawnPillars(sf::Time dt)
+{
+	if (spawnTimeCountDown1 <= sf::Time::Zero)
+	{
+		makePillarChunk(3);
+
+		spawnTimeCountDown1 = pillarSpawnRate;
+	}
+	else {
+		spawnTimeCountDown1 -= dt;
+	}
+}
+
 void World::checkFrogPos()
 {
 
 }
 
-void World::killFrog()
+void World::killTurtle()
 {
 	frogLives -= 1;
 	playerAircraft->setDeathStatus(true);
@@ -273,6 +301,8 @@ sf::FloatRect World::getBattlefield() const
 	sf::FloatRect bounds = getViewBounds();
 	bounds.left -= 100.f;
 	bounds.width += 600.f;
+	bounds.top -= 2000.f;
+	bounds.height += 4000.f;
 
 	return bounds;
 }
@@ -351,28 +381,19 @@ void World::handleCollisions()
 
 	for (auto pair : collisionPairs)
 	{
-		if (matchesCategories(pair, Category::type::PlayerFrog, Category::type::LilyPad))
+		if (matchesCategories(pair, Category::type::Turtle, Category::type::Pillar))
 		{
-			auto& frog = static_cast<Frog&>(*(pair.first));
-			auto& lilypad = static_cast<Lilypad&>(*(pair.second));
+			auto& turtle = static_cast<Turtle&>(*(pair.first));
+			auto& pillar = static_cast<Pillar&>(*(pair.second));
 
-			if (!lilypad.isLilyPadOccupied())
-			{
-				numberOfLilypadsOccupied++;
-				lilypad.addFrog();
-				lilypad.setOccupied(true);
-				frog.setPosition(TITLE_WIDTH * 7, TITLE_HEIGHT * 15);
-			}
-			else {
-				killFrog();
-			}
+			killTurtle();
 		}
-		if (matchesCategories(pair, Category::type::PlayerFrog, Category::type::Vehicle))
+		if (matchesCategories(pair, Category::type::Turtle, Category::type::ScorePillar))
 		{
-			auto& frog = static_cast<Frog&>(*(pair.first));
-			auto& vehicle = static_cast<Vehicles&>(*(pair.second));
+			auto& turtle = static_cast<Turtle&>(*(pair.first));
+			auto& pillar = static_cast<Pillar&>(*(pair.second));
 
-			killFrog();
+ 			turtle.updateScore(1);
 		}
 		if (matchesCategories(pair, Category::type::PlayerFrog, Category::type::RiverEntities))
 		{
