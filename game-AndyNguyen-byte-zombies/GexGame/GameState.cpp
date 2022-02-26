@@ -7,8 +7,9 @@ GameState::GameState(StateStack& stack, Context context)
 	: State(stack, context)
 	, world(*context.window, *context.fonts, *context.sound)
 	, player(*context.player)
+	, scoreText()
 {
-	context.music->play(MusicID::GameTheme);
+	//context.music->play(MusicID::GameTheme);
 }
 
 void GameState::draw()

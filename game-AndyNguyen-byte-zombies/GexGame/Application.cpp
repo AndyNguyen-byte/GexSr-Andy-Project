@@ -10,7 +10,7 @@
 const sf::Time	Application::TIME_PER_FRAME = sf::seconds((1.f / 60.f));
 
 Application::Application()
-	: window(sf::VideoMode(578.f, 1024.f), "Flappy Turtle GEX", sf::Style::Close)
+	: window(sf::VideoMode(1156.f, 1024.f), "Flappy Turtle GEX", sf::Style::Close)
 	, textures()
  	, fonts()
 	, player()

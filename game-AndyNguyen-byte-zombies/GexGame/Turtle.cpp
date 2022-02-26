@@ -25,17 +25,24 @@ Turtle::Turtle(Type type, const TextureHolder_t& textures, const FontHolder_t& f
 	, type(type)
 	, state(State::Alive)
 	, direction(Direction::Up)
-	, sprite(textures.get(TextureID::Turtle1), sf::IntRect(144.6, 0, 144.6, 101))
+	, sprite(textures.get(TextureID::Turtle1), sf::IntRect(173, 15, 77, 53))
 	, score(0)
 	, pointsDisplay(nullptr)
 	, _movementClock()
 {
 	centerOrigin(sprite);
+
+	std::unique_ptr<TextNode> score(new TextNode(fonts, ""));
+	pointsDisplay = score.get(); ///< raw pointer to scoreDisplay node
+	attachChild(std::move(score));
+
+	updateTexts();
 }
 
 void Turtle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(sprite, states);
+	drawBoundingBox(target, states);
 }
 
 unsigned int Turtle::getCategory() const
@@ -60,18 +67,18 @@ void Turtle::setDeathStatus(bool s)
 
 void Turtle::updateFlyAnimation()
 {
-	sf::IntRect textureRect = sf::IntRect(144.6, 0, 144.6, 101);
+	sf::IntRect textureRect = sf::IntRect(173, 15, 77, 59);
 
-	// Roll left: Texture rect offset once
+	// Fly Up: Texture rect offset twice
 	if (getVelocity().y < 0.f)
 	{
-		textureRect.left += textureRect.width;
+		textureRect.left += 2*textureRect.width;
 		sprite.setRotation(-15);
 	}
-	// Roll right: Texture rect offset twice
+	// Fly Right: Texture rect offset twice
 	else if (getVelocity().y > 0.f)
 	{
-		textureRect.left -= textureRect.width;
+		textureRect.left = 30;
 		sprite.setRotation(15);
 	}
 	sprite.setTextureRect(textureRect);
@@ -123,6 +130,8 @@ void Turtle::hop(Direction hopDirection)
 void Turtle::updateCurrent(sf::Time dt, CommandQueue& commands)
 {
 	centerOrigin(sprite);
+
+	updateTexts();
 
 	if (Turtle::State::Falling == state)
 	{

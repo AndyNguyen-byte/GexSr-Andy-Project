@@ -8,7 +8,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 const float TITLE_HEIGHT = 1024 / 16;
-const float TITLE_WIDTH = 578 / 15;
+const float TITLE_WIDTH = 1156 / 15;
 const float PILLAR_MOVEMENT_SPEED = 200.f;
 
 namespace
@@ -30,6 +30,7 @@ Pillar::Pillar(Type type, const TextureHolder_t& textures)
 void Pillar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
      target.draw(sprite, states);
+     drawBoundingBox(target, states);
 }
 
 unsigned int Pillar::getCategory() const

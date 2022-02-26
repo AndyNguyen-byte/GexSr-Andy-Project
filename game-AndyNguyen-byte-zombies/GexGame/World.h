@@ -42,6 +42,7 @@ public:
 
 	bool			hasAlivePlayer() const;
 	bool			hasPlayerReachedEnd() const;
+	int				getScore();
 
 private:
 	void			loadTextures();

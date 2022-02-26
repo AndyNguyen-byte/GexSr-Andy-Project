@@ -12,7 +12,7 @@
 #include "PillarGroup.h"
 
 const float TITLE_HEIGHT = 1024 / 16;
-const float TITLE_WIDTH = 578 / 15;
+const float TITLE_WIDTH = 1156 / 15;
 
 
 World::World(sf::RenderTarget& outputTarget, FontHolder_t& fonts, SoundPlayer& sounds)
@@ -29,6 +29,8 @@ World::World(sf::RenderTarget& outputTarget, FontHolder_t& fonts, SoundPlayer& s
 		worldBounds.height - worldView.getSize().y/2.f)
 	, scrollSpeed(-50.f)
 	, playerAircraft(nullptr)
+	, ground1(nullptr)
+	, ground2(nullptr)
 {
 	sceneTexture.create(target.getSize().x, target.getSize().y);
 
@@ -102,6 +104,11 @@ bool World::hasPlayerReachedEnd() const
 	return numberOfLilypadsOccupied==5;
 }
 
+int World::getScore()
+{
+	return playerAircraft->getScore();
+}
+
 void World::loadTextures()
 {
 	textures.load(TextureID::Entities, "../Media/Textures/Entities.png"); 
@@ -148,15 +155,6 @@ void World::buildScene()
 	sceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
 
-	//// Add smoke particle node to the scene
-	//std::unique_ptr<ParticleNode> smokeNode(new ParticleNode(Particle::Type::Smoke, textures));
-	//sceneLayers[LowerAir]->attachChild(std::move(smokeNode));
-
-	//// Add propellant particle node to the scene
-	//std::unique_ptr<ParticleNode> propellantNode(new ParticleNode(Particle::Type::Propellant, textures));
-	//sceneLayers[LowerAir]->attachChild(std::move(propellantNode));
-
-
 	// Add player's turtle
 	auto leader = std::make_unique<Turtle>(Turtle::Type::NormalTurtle, textures, fonts);
 	playerAircraft = leader.get();
@@ -167,13 +165,13 @@ void World::buildScene()
 
 	auto Ground1 = std::make_unique<Ground>(textures);
 	ground1 = Ground1.get();
-	ground1->setPosition(TITLE_WIDTH * 8.75, TITLE_HEIGHT * 15);
+	ground1->setPosition(TITLE_WIDTH * 7.5, TITLE_HEIGHT * 15);
 	ground1->setVelocity(-3 * TITLE_WIDTH, 0);
 	sceneLayers[LowerAir]->attachChild(std::move(Ground1));
 
 	auto Ground2 = std::make_unique<Ground>(textures);
 	ground2 = Ground2.get();
-	ground2->setPosition(TITLE_WIDTH * 20, TITLE_HEIGHT * 15);
+	ground2->setPosition(TITLE_WIDTH * 22.5, TITLE_HEIGHT * 15);
 	ground2->setVelocity(-3 * TITLE_WIDTH, 0);
 	sceneLayers[LowerAir]->attachChild(std::move(Ground2));
 
@@ -187,14 +185,14 @@ void World::buildScene()
 
 void World::resetGroundPos()
 {
-	if (ground1->getPosition().x < TITLE_WIDTH * -5)
+	if (ground1->getPosition().x < TITLE_WIDTH * -7.5)
 	{
-		ground1->setPosition(TITLE_WIDTH * 20, TITLE_HEIGHT * 15);
+		ground1->setPosition(TITLE_WIDTH * 22.5, TITLE_HEIGHT * 15);
 	}
 
-	if (ground2->getPosition().x < TITLE_WIDTH * -5)
+	if (ground2->getPosition().x < TITLE_WIDTH * -7.5)
 	{
-		ground2->setPosition(TITLE_WIDTH * 20, TITLE_HEIGHT * 15);
+		ground2->setPosition(TITLE_WIDTH * 22.5, TITLE_HEIGHT * 15);
 	}
 }
 
@@ -377,8 +375,6 @@ void World::handleCollisions()
 	std::set<SceneNode::Pair> collisionPairs;
 	sceneGraph.checkSceneCollision(sceneGraph, collisionPairs);
 
-	//check frog y pos for river if not on log kill on log not kill
-
 	for (auto pair : collisionPairs)
 	{
 		if (matchesCategories(pair, Category::type::Turtle, Category::type::Pillar))
@@ -393,15 +389,8 @@ void World::handleCollisions()
 			auto& turtle = static_cast<Turtle&>(*(pair.first));
 			auto& pillar = static_cast<Pillar&>(*(pair.second));
 
- 			turtle.updateScore(1);
-		}
-		if (matchesCategories(pair, Category::type::PlayerFrog, Category::type::RiverEntities))
-		{
-			auto& frog = static_cast<Frog&>(*(pair.first));
-			auto& riverEntity = static_cast<RiverEntities&>(*(pair.second));
-
-
-			frog.setVelocity(riverEntity.getVelocity());
+			turtle.updateScore(1);
+			pillar.destroy();
 		}
 	}
 }
