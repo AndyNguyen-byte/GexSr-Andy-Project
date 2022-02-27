@@ -278,7 +278,7 @@ void World::difficultySet()
 	{
 		reverseTurtle();
 	}
-	if (playerAircraft->getScore() == 2)
+	if (playerAircraft->getScore() == 40)
 	{
 		reverseGamePlay();
 	}
