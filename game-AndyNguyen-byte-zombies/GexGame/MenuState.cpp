@@ -11,7 +11,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	: State(stack, context)
 	, optionsIndex(0)
 {
-	context.music->play(MusicID::TitleTheme);
+	//context.music->play(MusicID::TitleTheme);
 
 	sf::Texture& texture = context.textures->get(TextureID::TitleScreen);
 

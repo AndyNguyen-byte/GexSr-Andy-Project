@@ -31,6 +31,8 @@ enum class TextureID
 	Turtle3,
 	PillarUp1,
 	PillarDown1,
+	SharkLeft,
+	SharkRight,
 
 	PlayerFrog,
 	BonusFrog,

@@ -10,10 +10,12 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Pillar.h"
 #include "PillarGroup.h"
+#include "Sharks.h"
 
 const float TITLE_HEIGHT = 1024 / 16;
 const float TITLE_WIDTH = 1156 / 15;
-
+const int	RIGHT_SPAWN = -5;
+const int	LEFT_SPAWN = 17;
 
 World::World(sf::RenderTarget& outputTarget, FontHolder_t& fonts, SoundPlayer& sounds)
 	: target(outputTarget)
@@ -46,6 +48,8 @@ void World::update(sf::Time dt)
 
 	resetGroundPos();
 
+	checkTurtlePos();
+
 	destroyEntitiesOutOfView();
 
 	// apply all command
@@ -58,7 +62,12 @@ void World::update(sf::Time dt)
 
 	sceneGraph.removeWrecks();
 	spawnPillars(dt);
+	difficultySet();
 
+	if (enableSharks)
+	{
+		spawnSharks(dt);
+	}
 	sceneGraph.update(dt, commands); 
 	adaptPlayerPosition(); 
 
@@ -122,6 +131,8 @@ void World::loadTextures()
 	textures.load(TextureID::Turtle1, "../Media/Textures/Turtle1.png");
 	textures.load(TextureID::PillarUp1, "../Media/Textures/PillarUp.png");
 	textures.load(TextureID::PillarDown1, "../Media/Textures/PillarDown.png");
+	textures.load(TextureID::SharkLeft, "../Media/Textures/Shark1.png");
+	textures.load(TextureID::SharkRight, "../Media/Textures/Shark2.png");
 
 	textures.load(TextureID::MissisleRefill, "../Media/Textures/MissileRefill.png");
 	textures.load(TextureID::Ground, "../Media/Textures/Ground.png");
@@ -175,11 +186,6 @@ void World::buildScene()
 	ground2->setVelocity(-3 * TITLE_WIDTH, 0);
 	sceneLayers[LowerAir]->attachChild(std::move(Ground2));
 
-	/*auto pillar = std::make_unique<Pillar>(Pillar::Type::PillarDown, textures);
-	pillar->setPosition(TITLE_WIDTH * 15, TITLE_HEIGHT * 5);
-	pillar->setVelocity(-3 * TITLE_WIDTH, 0);
-	sceneLayers[LowerAir]->attachChild(std::move(pillar));*/
-
 }
 
 
@@ -196,28 +202,19 @@ void World::resetGroundPos()
 	}
 }
 
-
-void World::makeVehicle(Vehicles::Type type, float x, float y)
-{
-	auto car = std::make_unique<Vehicles>(type, textures);
-	car->setPosition(TITLE_WIDTH * x, TITLE_HEIGHT * y);
-	car->setVelocity(car->getSpeed() * TITLE_WIDTH, 0);
-	sceneLayers[LowerAir]->attachChild(std::move(car));
-}
-
-void World::makeRiverEntities(RiverEntities::Type type, float x, float y)
-{
-	auto river = std::make_unique<RiverEntities>(type, textures);
-	river->setPosition(TITLE_WIDTH * x, TITLE_HEIGHT * y);
-	river->setVelocity(river->getSpeed() * TITLE_WIDTH, 0);
-	sceneLayers[LowerAir]->attachChild(std::move(river));
-}
-
 void World::makePillarChunk(float y)
 {
-	auto pillarChunk = std::make_unique<PillarGroup>(textures);
-	pillarChunk->setPosition(TITLE_WIDTH * 17, TITLE_HEIGHT * y);
-	sceneLayers[LowerAir]->attachChild(std::move(pillarChunk));
+	if (!enabbleReverseGameplay)
+	{ 
+		auto pillarChunk = std::make_unique<PillarGroup>(textures,-3);
+		pillarChunk->setPosition(TITLE_WIDTH * LEFT_SPAWN, TITLE_HEIGHT * y);
+		sceneLayers[LowerAir]->attachChild(std::move(pillarChunk));
+	}
+	else {
+		auto pillarChunk = std::make_unique<PillarGroup>(textures,3);
+		pillarChunk->setPosition(TITLE_WIDTH * RIGHT_SPAWN, TITLE_HEIGHT * y);
+		sceneLayers[LowerAir]->attachChild(std::move(pillarChunk));
+	}
 }
 
 void World::spawnPillars(sf::Time dt)
@@ -233,15 +230,72 @@ void World::spawnPillars(sf::Time dt)
 	}
 }
 
-void World::checkFrogPos()
+void World::makeSharks(Sharks::Type type, float x, float y)
 {
-
+	auto testShark = std::make_unique<Sharks>(type, textures);
+	testShark->setPosition(TITLE_WIDTH * x, TITLE_HEIGHT * y);
+	testShark->setVelocity(-3.5 * TITLE_WIDTH, 0);
+	sceneLayers[LowerAir]->attachChild(std::move(testShark));
 }
+
+void World::spawnSharks(sf::Time dt)
+{
+	if (spawnTimeCountDown2 <= sf::Time::Zero)
+	{
+		int y = randomInt(13);
+
+		makeSharks(Sharks::Type::RightShark,17, y);
+
+		spawnTimeCountDown2 = sharkSpawnRate;
+	}
+	else {
+		spawnTimeCountDown2 -= dt;
+	}
+}
+
+void World::checkTurtlePos()
+{
+	if (playerAircraft->getPosition().y > TITLE_HEIGHT * 13)
+	{
+		killTurtle();
+	}
+}
+
 
 void World::killTurtle()
 {
 	frogLives -= 1;
 	playerAircraft->setDeathStatus(true);
+}
+
+void World::difficultySet()
+{
+	if (playerAircraft->getScore() == 20)
+	{
+		enableSharks = true;
+	}
+	if (playerAircraft->getScore() == 30)
+	{
+		reverseTurtle();
+	}
+	if (playerAircraft->getScore() == 2)
+	{
+		reverseGamePlay();
+	}
+}
+
+void World::reverseTurtle()
+{
+	playerAircraft->reverseGravity(true);
+	playerAircraft->setScale(-1.f, 1.f);
+	playerAircraft->setRotation(180);
+}
+
+void World::reverseGamePlay()
+{
+	enabbleReverseGameplay = true;
+	playerAircraft->setScale(-1.f, 1.f);
+	playerAircraft->flipPointDisplay();
 }
 
 void World::adaptPlayerPosition()
@@ -391,6 +445,13 @@ void World::handleCollisions()
 
 			turtle.updateScore(1);
 			pillar.destroy();
+		}
+		if (matchesCategories(pair, Category::type::Turtle, Category::type::Shark))
+		{
+			auto& turtle = static_cast<Turtle&>(*(pair.first));
+			auto& shark = static_cast<Sharks&>(*(pair.second));
+
+			killTurtle();
 		}
 	}
 }

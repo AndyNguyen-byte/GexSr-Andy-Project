@@ -84,6 +84,16 @@ void Turtle::updateFlyAnimation()
 	sprite.setTextureRect(textureRect);
 }
 
+void Turtle::reverseGravity(bool b)
+{
+	reverse = b;
+}
+
+void Turtle::flipPointDisplay()
+{
+	pointsDisplay->setScale(-1.f, 1.f);
+}
+
 sf::FloatRect Turtle::getBoundingRect() const
 {
 	return getWorldTransform().transformRect(sprite.getGlobalBounds());
@@ -135,10 +145,22 @@ void Turtle::updateCurrent(sf::Time dt, CommandQueue& commands)
 
 	if (Turtle::State::Falling == state)
 	{
-		accelerate(0.f, GRAVITY * dt.asSeconds());
+		if (reverse)
+		{
+			accelerate(0.f, -GRAVITY * dt.asSeconds());
+		}
+		else {
+			accelerate(0.f, GRAVITY * dt.asSeconds());
+		}
 	} else if (Turtle::State::Flying == state)
 	{
-		accelerate(0.f, FLYING_SPEED * dt.asSeconds());
+		if (reverse)
+		{
+			accelerate(0.f, -FLYING_SPEED * dt.asSeconds());
+		}
+		else {
+			accelerate(0.f, FLYING_SPEED * dt.asSeconds());
+		}
 	}
 
 	if (_movementClock.getElapsedTime().asSeconds() > FLYING_DURATION)
@@ -156,5 +178,11 @@ void Turtle::updateTexts()
 {
 	pointsDisplay->setText("Score: " + std::to_string(getScore()));
 	pointsDisplay->setPosition(0.f, 50.f);
-	pointsDisplay->setRotation(-getRotation());
+	if (!reverse) {
+		pointsDisplay->setRotation(-getRotation());
+	}
+	else {
+		pointsDisplay->setRotation(getRotation());
+		flipPointDisplay();
+	}
 }

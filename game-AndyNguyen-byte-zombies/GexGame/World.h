@@ -11,6 +11,7 @@
 #include "BloomEffect.h"
 #include "Actor.h"
 #include "Frog.h"
+#include  "Sharks.h"
 #include "Ground.h"
 #include "Lilypad.h"
 #include "Vehicles.h"
@@ -49,12 +50,15 @@ private:
 	void			buildScene();
 
 	void			resetGroundPos();
-	void			makeVehicle(Vehicles::Type type, float x, float y);
-	void			makeRiverEntities(RiverEntities::Type type,float x,float y);
 	void			makePillarChunk(float y);
 	void			spawnPillars(sf::Time dt);
-	void			checkFrogPos();
+	void			makeSharks(Sharks::Type type, float x, float y);
+	void			spawnSharks(sf::Time dt);
+	void			checkTurtlePos();
 	void			killTurtle();
+	void			difficultySet();
+	void			reverseTurtle();
+	void			reverseGamePlay();
 
 	void			adaptPlayerPosition();
 	void			adaptPlayerVelocity();
@@ -113,10 +117,16 @@ private:
 	Ground*								ground1;
 	Ground*								ground2;
 
+
 	sf::Time							spawnTimeCountDown1 = sf::seconds(1.f);
+	sf::Time							spawnTimeCountDown2 = sf::seconds(1.f);
 
 	sf::Time							pillarSpawnRate = sf::seconds(2.5f);
+	sf::Time							sharkSpawnRate = sf::seconds(3.5f);
 	
+	bool								enableSharks = false;
+	bool								enabbleReverseGameplay = false;
+
 	int									numberOfLilypadsOccupied = 0;
 	int									frogLives = 2;
 

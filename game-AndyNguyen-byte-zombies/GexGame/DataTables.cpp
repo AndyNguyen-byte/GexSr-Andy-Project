@@ -335,6 +335,16 @@ std::map<Pillar::Type, PillarData> initalizePillarData()
 	return data;
 }
 
+std::map<Sharks::Type, SharkData> initalizeSharkData()
+{
+	std::map<Sharks::Type, SharkData> data;
+
+	data[Sharks::Type::LeftShark].texture = TextureID::SharkLeft;
+	data[Sharks::Type::RightShark].texture = TextureID::SharkRight;
+
+	return data;
+}
+
 std::map<Aircraft::Type, AircraftData> initalizeAircraftData()
 {
     std::map<Aircraft::Type, AircraftData> data;

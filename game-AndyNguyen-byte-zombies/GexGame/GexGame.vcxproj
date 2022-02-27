@@ -178,6 +178,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="RiverEnitites.cpp" />
     <ClCompile Include="SceneNode.cpp" />
+    <ClCompile Include="Sharks.cpp" />
     <ClCompile Include="SoundNode.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="ResourceHolder.h" />
     <ClInclude Include="RiverEntities.h" />
     <ClInclude Include="SceneNode.h" />
+    <ClInclude Include="Sharks.h" />
     <ClInclude Include="SoundNode.h" />
     <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="SpriteNode.h" />

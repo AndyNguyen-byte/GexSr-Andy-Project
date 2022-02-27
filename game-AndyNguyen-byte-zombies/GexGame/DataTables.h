@@ -20,6 +20,7 @@
 #include <map>
 #include "Frog.h"
 #include "Pillar.h"
+#include "Sharks.h"
 
 
 struct Direction
@@ -94,6 +95,11 @@ struct PillarData
 	TextureID				texture;
 };
 
+struct SharkData
+{
+	TextureID				texture;
+};
+
 struct LilyPadData
 {
 	TextureID							texture;
@@ -125,6 +131,7 @@ std::map<RiverEntities::Type, RiverEntitiesData>		initializeRiverEntitiesData();
 
 std::map<Turtle::Type, TurtleData>						initalizeTurtleData();
 std::map<Pillar::Type, PillarData>						initalizePillarData();
+std::map<Sharks::Type, SharkData>						initalizeSharkData();
 
 std::map<Aircraft::Type, AircraftData>					initalizeAircraftData();
 std::map<Projectile::Type, ProjectileData>				initializeProjectileData();

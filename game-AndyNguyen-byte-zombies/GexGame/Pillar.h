@@ -23,7 +23,6 @@ public:
 
 private:
 	Type					type;
-	sf::IntRect				textureRect;
 	sf::Sprite				sprite;
 
 };

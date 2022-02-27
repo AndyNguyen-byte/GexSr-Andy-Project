@@ -12,7 +12,7 @@ PauseState::PauseState(StateStack& stack, Context context)
     , pausedText()
     , instructionText()
 {
-	context.music->setPaused(true);
+	//context.music->setPaused(true);
 
 	pausedText.setFont(context.fonts->get(FontID::Main));
 	pausedText.setString("Game Paused");
@@ -30,7 +30,7 @@ PauseState::PauseState(StateStack& stack, Context context)
 
 PauseState::~PauseState()
 {
-	getContext().music->setPaused(false);
+	//getContext().music->setPaused(false);
 }
 
 void PauseState::draw()
