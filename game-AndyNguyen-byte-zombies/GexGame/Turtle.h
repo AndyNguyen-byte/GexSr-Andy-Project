@@ -47,10 +47,8 @@ public:
 	void					updateScore(int points);
 	int						getScore();
 	void					setDeathStatus(bool s);
-	void					updateFlyAnimation();
 	void					reverseGravity(bool b);
 	void					flipPointDisplay();
-
 	virtual sf::FloatRect	getBoundingRect() const override;
 
 
@@ -66,6 +64,8 @@ private:
 	virtual void			updateCurrent(sf::Time dt, CommandQueue& commands) override;
 	void					updateTexts();
 
+	void					updateFlyAnimation();
+
 private:
 	Type										type;
 	State										state;
@@ -74,11 +74,7 @@ private:
 	sf::Clock									_movementClock;
 
 	bool										isDead = false;
-	bool										hasPlayedDeathSound;
-	bool										isHopping = false;
 	bool										reverse = false;
-
-
 
 	int											score = 0;
 	TextNode*									pointsDisplay;
