@@ -30,7 +30,7 @@ Pillar::Pillar(Type type, const TextureHolder_t& textures)
 void Pillar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
      target.draw(sprite, states);
-     drawBoundingBox(target, states);
+     //drawBoundingBox(target, states);
 }
 
 unsigned int Pillar::getCategory() const

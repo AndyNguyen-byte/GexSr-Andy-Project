@@ -42,7 +42,7 @@ Turtle::Turtle(Type type, const TextureHolder_t& textures, const FontHolder_t& f
 void Turtle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(sprite, states);
-	drawBoundingBox(target, states);
+	//drawBoundingBox(target, states);
 }
 
 unsigned int Turtle::getCategory() const

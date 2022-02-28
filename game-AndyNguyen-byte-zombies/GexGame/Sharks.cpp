@@ -23,7 +23,7 @@ Sharks::Sharks(Type type,const TextureHolder_t& textures)
 void Sharks::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(sprite, states);
-    drawBoundingBox(target, states);
+    //drawBoundingBox(target, states);
 }
 
 unsigned int Sharks::getCategory() const
