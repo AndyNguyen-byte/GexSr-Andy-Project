@@ -59,16 +59,10 @@ private:
 	void			difficultySet();
 	void			reverseTurtle();
 	void			reverseGamePlay();
-
-	void			adaptPlayerPosition();
-	void			adaptPlayerVelocity();
-
-	void			spawnEnemies();
 	
 	sf::FloatRect	getViewBounds() const;
 	sf::FloatRect	getBattlefield() const;
 
-	void			guideMissiles();
 	void			handleCollisions();
 	void			destroyEntitiesOutOfView();
 	
@@ -81,15 +75,6 @@ private:
 		LowerAir,
 		UpperAir,
 		LayerCount
-	};
-
-
-	struct SpawnPoint
-	{
-		SpawnPoint(Actor::Type type, float x, float y) : type(type), x(x), y(y) {}
-		Actor::Type						type;
-		float							x;
-		float							y;
 	};
 
 
@@ -113,7 +98,7 @@ private:
 	sf::Vector2f						spawnPosition;
 	float								scrollSpeed;
 
-	Turtle*								playerAircraft;
+	Turtle*								playerTurtle;
 	Ground*								ground1;
 	Ground*								ground2;
 
@@ -125,13 +110,10 @@ private:
 	sf::Time							sharkSpawnRate = sf::seconds(3.5f);
 	
 	bool								enableSharks = false;
-	bool								enabbleReverseGameplay = false;
+	bool								enableReverseGameplay = false;
 
 	int									numberOfLilypadsOccupied = 0;
-	int									frogLives = 2;
-
-	std::vector<SpawnPoint>				enemySpawnPoints;
-	std::vector<Actor*>					activeEnemies;
+	int									turtleLives = 2;
 
 	BloomEffect							bloomEffect;
 };

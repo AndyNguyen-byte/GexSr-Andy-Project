@@ -30,7 +30,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder_t& fonts, SoundPlayer& s
 	, spawnPosition(worldView.getSize().x /2.f,
 		worldBounds.height - worldView.getSize().y/2.f)
 	, scrollSpeed(-50.f)
-	, playerAircraft(nullptr)
+	, playerTurtle(nullptr)
 	, ground1(nullptr)
 	, ground2(nullptr)
 {
@@ -44,8 +44,6 @@ World::World(sf::RenderTarget& outputTarget, FontHolder_t& fonts, SoundPlayer& s
 
 void World::update(sf::Time dt)
 {
-	// sroll the world
-
 	resetGroundPos();
 
 	checkTurtlePos();
@@ -55,8 +53,6 @@ void World::update(sf::Time dt)
 	// apply all command
 	while (!commands.isEmpty())
 		sceneGraph.onCommand(commands.pop(), dt);
-	
-	adaptPlayerVelocity();
 
 	handleCollisions();
 
@@ -69,14 +65,13 @@ void World::update(sf::Time dt)
 		spawnSharks(dt);
 	}
 	sceneGraph.update(dt, commands); 
-	adaptPlayerPosition(); 
 
 	updateSounds();
 }
 
 void World::updateSounds()
 {
-	sounds.setListnerPosition(playerAircraft->getWorldPosition());
+	sounds.setListnerPosition(playerTurtle->getWorldPosition());
 	sounds.removeStoppedSounds();
 }
 
@@ -105,7 +100,7 @@ CommandQueue& World::getCommandQueue()
 
 bool World::hasAlivePlayer() const
 {
-	return !frogLives<=0;
+	return !turtleLives <=0;
 }
 
 bool World::hasPlayerReachedEnd() const
@@ -115,7 +110,7 @@ bool World::hasPlayerReachedEnd() const
 
 int World::getScore()
 {
-	return playerAircraft->getScore();
+	return playerTurtle->getScore();
 }
 
 void World::loadTextures()
@@ -168,18 +163,19 @@ void World::buildScene()
 
 	// Add player's turtle
 	auto leader = std::make_unique<Turtle>(Turtle::Type::NormalTurtle, textures, fonts);
-	playerAircraft = leader.get();
-	playerAircraft->setPosition(spawnPosition.x,spawnPosition.y);
-	playerAircraft->setVelocity(0.f,0.f);
+	playerTurtle = leader.get();
+	playerTurtle->setPosition(spawnPosition.x,spawnPosition.y);
+	playerTurtle->setVelocity(0.f,0.f);
 	sceneLayers[UpperAir]->attachChild(std::move(leader));
 
-
+	//Add The Grounds
 	auto Ground1 = std::make_unique<Ground>(textures);
 	ground1 = Ground1.get();
 	ground1->setPosition(TITLE_WIDTH * 7.5, TITLE_HEIGHT * 15);
 	ground1->setVelocity(-3 * TITLE_WIDTH, 0);
 	sceneLayers[LowerAir]->attachChild(std::move(Ground1));
 
+	//Add The Grounds
 	auto Ground2 = std::make_unique<Ground>(textures);
 	ground2 = Ground2.get();
 	ground2->setPosition(TITLE_WIDTH * 22.5, TITLE_HEIGHT * 15);
@@ -204,7 +200,7 @@ void World::resetGroundPos()
 
 void World::makePillarChunk(float y)
 {
-	if (!enabbleReverseGameplay)
+	if (!enableReverseGameplay)
 	{ 
 		auto pillarChunk = std::make_unique<PillarGroup>(textures,-3);
 		pillarChunk->setPosition(TITLE_WIDTH * LEFT_SPAWN, TITLE_HEIGHT * y);
@@ -255,7 +251,7 @@ void World::spawnSharks(sf::Time dt)
 
 void World::checkTurtlePos()
 {
-	if (playerAircraft->getPosition().y > TITLE_HEIGHT * 13)
+	if (playerTurtle->getPosition().y > TITLE_HEIGHT * 13)
 	{
 		killTurtle();
 	}
@@ -264,21 +260,21 @@ void World::checkTurtlePos()
 
 void World::killTurtle()
 {
-	frogLives -= 1;
-	playerAircraft->setDeathStatus(true);
+	turtleLives -= 1;
+	playerTurtle->setDeathStatus(true);
 }
 
 void World::difficultySet()
 {
-	if (playerAircraft->getScore() == 20)
+	if (playerTurtle->getScore() == 20)
 	{
 		enableSharks = true;
 	}
-	if (playerAircraft->getScore() == 30)
+	if (playerTurtle->getScore() == 30)
 	{
 		reverseTurtle();
 	}
-	if (playerAircraft->getScore() == 40)
+	if (playerTurtle->getScore() == 40)
 	{
 		reverseGamePlay();
 	}
@@ -286,61 +282,17 @@ void World::difficultySet()
 
 void World::reverseTurtle()
 {
-	playerAircraft->reverseGravity(true);
-	playerAircraft->setScale(-1.f, 1.f);
-	playerAircraft->setRotation(180);
+	playerTurtle->reverseGravity(true);
+	playerTurtle->setScale(-1.f, 1.f);
+	playerTurtle->setRotation(180);
 }
 
 void World::reverseGamePlay()
 {
-	enabbleReverseGameplay = true;
-	playerAircraft->setScale(-1.f, 1.f);
-	playerAircraft->flipPointDisplay();
+	enableReverseGameplay = true;
+	playerTurtle->setScale(-1.f, 1.f);
+	playerTurtle->flipPointDisplay();
 }
-
-void World::adaptPlayerPosition()
-{
-	// Keep player's position inside the screen bounds, at least borderDistance units from the border
-	sf::FloatRect viewBounds(worldView.getCenter() - worldView.getSize() / 2.f, worldView.getSize());
-	
-	const float borderDistance = 20.f;
-
-	sf::Vector2f position = playerAircraft->getPosition();
-
-	//position.x = std::max(position.x, viewBounds.left + borderDistance);
-	//position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
-	position.y = std::max(position.y, viewBounds.top + borderDistance);
-	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
-
-	playerAircraft->setPosition(position);
-
-}
-
-void World::adaptPlayerVelocity()
-{
-	sf::Vector2f velocity = playerAircraft->getVelocity();
-
-	if (velocity.x != 0.f && velocity.y != 0.f)
-		playerAircraft->setVelocity(velocity / std::sqrt(2.f));
-
-	playerAircraft->accelerate(0.f, 0.f);
-
-}
-
-void World::spawnEnemies()
-{
-	while (!enemySpawnPoints.empty() && 
-			enemySpawnPoints.back().y > getBattlefield().top )
-		
-	{
-		auto spawn = enemySpawnPoints.back();
-		std::unique_ptr<Actor> enemy(new Actor(spawn.type, textures, fonts));
-		enemy->setPosition(spawn.x, spawn.y);
-		sceneLayers[UpperAir]->attachChild(std::move(enemy));
-		enemySpawnPoints.pop_back();
-	}
-
- }
 
 
 sf::FloatRect World::getViewBounds() const
@@ -358,50 +310,6 @@ sf::FloatRect World::getBattlefield() const
 
 	return bounds;
 }
-
-void World::guideMissiles()
-{
-	// build a list of active Enemies
-	Command enemyCollector;
-	enemyCollector.category = Category::EnemyAircraft;
-	enemyCollector.action = derivedAction<Actor>([this](Actor& enemy, sf::Time dt)
-		{
-			if (!enemy.isDestroyed())
-				activeEnemies.push_back(&enemy);
-		});
-
-	Command missileGuider;
-	missileGuider.category = Category::type::AlliedProjectile;
-	missileGuider.action = derivedAction<Projectile>([this](Projectile& missile, sf::Time dt)
-		{
-			// ignore bullets
-			if (!missile.isGuided())
-				return;
-
-		 	float minDistance = std::numeric_limits<float>::max();
-			Actor* closestEnemy = nullptr;
-
-			for (Actor* e : activeEnemies)
-			{
-				auto d = distance(missile, *e);
-				if (d < minDistance)
-				{
-					minDistance = d;
-					closestEnemy = e;
-				}
-			}
-
-			if (closestEnemy)
-				missile.guideTowards(closestEnemy->getWorldPosition());
-		});
-
-	commands.push(enemyCollector);
-	commands.push(missileGuider);
-
-	activeEnemies.clear();
-
-}
-
 
 bool matchesCategories(SceneNode::Pair& colliders, Category::type type1, Category::type type2)
 {
