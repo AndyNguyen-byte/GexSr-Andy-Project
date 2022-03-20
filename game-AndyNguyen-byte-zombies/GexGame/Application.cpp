@@ -23,7 +23,7 @@ Application::Application()
 	window.setKeyRepeatEnabled(false);
 
 	fonts.load(FontID::Main, "../Media/Sansation.ttf");
-	textures.load(TextureID::TitleScreen, "../Media/Textures/FroggerTitle.png");
+	textures.load(TextureID::TitleScreen, "../Media/Textures/FlappyTurtleTitle.png");
 
 	statisticsText.setFont(fonts.get(FontID::Main));
 	statisticsText.setPosition(15.0f, 15.0f);
