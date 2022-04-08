@@ -11,21 +11,30 @@
 GameOverState::GameOverState(StateStack& stack, Context context)
 	: State(stack, context)
 	, gameOverText()
+	, scoreText()
 	, elapsedTime(sf::Time::Zero)
 {
 	sf::Font& font = context.fonts->get(FontID::Main);
 	sf::Vector2f windowSize(context.window->getSize());
 
 	gameOverText.setFont(font);
+	scoreText.setFont(font);
 
 	if (context.player->getMissionStatus() == PlayerControl::MissionStatus::MissionFailure)
+	{
 		gameOverText.setString("Game Over!");
+		scoreText.setString("Score: " + std::to_string(context.player->getScore()));
+	}	
 	else
 		gameOverText.setString("Mission Success");
 
 	gameOverText.setCharacterSize(70);
 	centerOrigin(gameOverText);
 	gameOverText.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
+
+	scoreText.setCharacterSize(70);
+	centerOrigin(scoreText);
+	scoreText.setPosition(0.5f * windowSize.x, 0.6f * windowSize.y);
 
 }
 
@@ -40,6 +49,7 @@ void GameOverState::draw()
 
 	window.draw(backgroundShape);
 	window.draw(gameOverText);
+	window.draw(scoreText);
 }
 
 bool GameOverState::update(sf::Time dt)

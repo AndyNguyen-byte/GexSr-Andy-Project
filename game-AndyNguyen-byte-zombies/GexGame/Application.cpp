@@ -6,6 +6,7 @@
 #include "MenuState.h"
 #include "PauseState.h"
 #include "GameOverState.h"
+#include "ScoreScreenState.h"
 
 const sf::Time	Application::TIME_PER_FRAME = sf::seconds((1.f / 60.f));
 
@@ -112,4 +113,5 @@ void Application::registerStates()
 	stateStack.registerState<GameState>(StateID::Game);
 	stateStack.registerState<PauseState>(StateID::Pause);
 	stateStack.registerState<GameOverState>(StateID::GameOver);
+	stateStack.registerState<ScoreScreenState>(StateID::HighScore);
 }

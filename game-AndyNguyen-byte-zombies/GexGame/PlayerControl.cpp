@@ -8,9 +8,14 @@
 
 PlayerControl::PlayerControl()
 	: currentMissionStatus(MissionStatus::MissionRunning)
+
 {
 	initializeKeys();
 	initializeActions();
+
+	for (int i = 0; i < 5; i++) {
+		_highScores.push_back(0);
+	}
 }
 
 void PlayerControl::initializeKeys()
@@ -82,6 +87,35 @@ void PlayerControl::setMissionStatus(MissionStatus status)
 PlayerControl::MissionStatus PlayerControl::getMissionStatus() const
 {
 	return currentMissionStatus;
+}
+
+void PlayerControl::setScore(int score)
+{
+	_score = score;
+}
+
+
+int PlayerControl::getScore() const
+{
+	return _score;
+}
+
+void PlayerControl::addScoreToList(int score)
+{
+	_highScores.push_back(score);
+}
+
+std::string PlayerControl::getHighScores()
+{
+	sort(_highScores.rbegin(), _highScores.rend());
+	
+	std::string scoreChain = std::to_string(_highScores[0]) + 
+		"\n" + std::to_string(_highScores[1]) + 
+		"\n" + std::to_string(_highScores[2]) + 
+		"\n" +std::to_string(_highScores[3]) + 
+		"\n" +std::to_string(_highScores[4]) + " ";
+
+	return scoreChain;
 }
 
 void PlayerControl::initializeActions()

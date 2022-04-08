@@ -9,4 +9,5 @@ enum class StateID
 	Loading,
 	Pause,
 	GameOver,
+	HighScore,
 };

@@ -24,6 +24,8 @@ bool GameState::update(sf::Time dt)
 	if (!world.hasAlivePlayer())
 	{
 		player.setMissionStatus(PlayerControl::MissionStatus::MissionFailure);
+		player.setScore(world.getScore());
+		player.addScoreToList(world.getScore());
 		requestStackPush(StateID::GameOver);
 	}
 	else if (world.hasPlayerReachedEnd())

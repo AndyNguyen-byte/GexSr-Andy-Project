@@ -46,6 +46,12 @@ public:
 	void				setMissionStatus(MissionStatus status);
 	MissionStatus		getMissionStatus() const;
 
+	void				setScore(int score);
+	int					getScore() const;
+
+	void				addScoreToList(int score);
+	std::string			getHighScores();
+
 private:
 	void				initializeKeys();
 	void				initializeActions();
@@ -55,6 +61,7 @@ private:
 	std::map<sf::Keyboard::Key, Action>		keyBindings;
 	std::map<Action, Command>				actionBindings;
 	MissionStatus							currentMissionStatus;
-
+	int										_score;
+	std::vector<int>						_highScores;
 };
 

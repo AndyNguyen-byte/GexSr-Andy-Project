@@ -29,11 +29,19 @@ MenuState::MenuState(StateStack& stack, Context context)
 	options.push_back(playOption);
 
 	// exit option 
+	sf::Text highScoreOption;
+	highScoreOption.setFont(context.fonts->get(FontID::Main));
+	highScoreOption.setString("High Scores");
+	centerOrigin(highScoreOption);
+	highScoreOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 30.f));
+	options.push_back(highScoreOption);
+
+	// exit option 
 	sf::Text exitOption;
 	exitOption.setFont(context.fonts->get(FontID::Main));
 	exitOption.setString("Exit");
 	centerOrigin(exitOption);
-	exitOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 30.f));
+	exitOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 60.f));
 	options.push_back(exitOption);
 
 
@@ -63,15 +71,37 @@ bool MenuState::handleEvent(const sf::Event& event)
 
 	if (event.key.code == sf::Keyboard::Return)
 	{
-		if (optionsIndex == Play)
+		switch (optionsIndex)
+		{
+		case Play:
+			requestStackPop();
+			requestStackPush(StateID::Game);
+			break;
+		case HighScores:
+			requestStackPop();
+			requestStackPush(StateID::HighScore);
+			break;
+		case Exit:
+			requestStackPop();
+			break;
+		default:
+			break;
+		}
+
+		/*if (optionsIndex == Play)
 		{
 			requestStackPop();
 			requestStackPush(StateID::Game);
 		}
+		else if (optionsIndex == HighScores)
+		{
+			requestStackPop();
+			requestStackPush(StateID::HighScore);
+		}
 		else if (optionsIndex == Exit)
 		{
 			requestStackPop();
-		}
+		}*/
 	}
 	else if ((event.key.code == sf::Keyboard::Up))
 	{

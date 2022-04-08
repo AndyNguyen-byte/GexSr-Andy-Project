@@ -23,6 +23,7 @@ private:
 	enum OptionNames
 	{
 		Play,
+		HighScores,
 		Exit,
 	};
 

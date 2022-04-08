@@ -20,6 +20,7 @@ public:
 private:
 
 	sf::Text				gameOverText;
+	sf::Text				scoreText;
 	sf::Time				elapsedTime;
 
 };

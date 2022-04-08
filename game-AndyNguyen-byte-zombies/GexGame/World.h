@@ -9,9 +9,8 @@
 #include "Command.h"
 #include "BloomEffect.h"
 #include "Frog.h"
-#include  "Sharks.h"
+#include "Sharks.h"
 #include "Ground.h"
-#include "RiverEntities.h"
 
 #include <SFML/Graphics/View.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -28,18 +27,18 @@ class SoundPlayer;
 class World 
 {
 public: 
-					World(const World&) = delete;
-					World(sf::RenderTarget& outputTarget, FontHolder_t& fonts, SoundPlayer& sounds);
+						World(const World&) = delete;
+						World(sf::RenderTarget& outputTarget, FontHolder_t& fonts, SoundPlayer& sounds);
 
-	void			update(sf::Time dt);
-	void			updateSounds();
-	void			draw();
+	void				update(sf::Time dt);
+	void				updateSounds();
+	void				draw();
 	 
-	CommandQueue&	getCommandQueue();
+	CommandQueue&		getCommandQueue();
 
-	bool			hasAlivePlayer() const;
-	bool			hasPlayerReachedEnd() const;
-	int				getScore();
+	bool				hasAlivePlayer() const;
+	bool				hasPlayerReachedEnd() const;
+	int					getScore();
 
 private:
 	void			loadTextures();
