@@ -31,6 +31,11 @@ SoundPlayer::SoundPlayer()
 	//loadBuffer(SoundEffectID::FrogJump, "../Media/Sound/sound-frogger-hop.wav");
 	loadBuffer(SoundEffectID::FrogDie, "../Media/Sound/froggerDie.wav");
 
+	loadBuffer(SoundEffectID::HopSound, "../Media/Sound/sfx_wing.wav");
+	loadBuffer(SoundEffectID::DeathSound, "../Media/Sound/sfx_die.wav");
+	loadBuffer(SoundEffectID::ScoreSound, "../Media/Sound/sfx_point.wav");
+	loadBuffer(SoundEffectID::HitSound, "../Media/Sound/sfx_hit.wav");
+
 	// Listener points towards the screen (default in SFML)
 	sf::Listener::setDirection(0.f, 0.f, -1.f);
 }

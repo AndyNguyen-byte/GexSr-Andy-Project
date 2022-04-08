@@ -75,6 +75,9 @@ private:
 
 	bool										isDead = false;
 	bool										reverse = false;
+	bool										isHopping = false;
+	bool										hasPlayedHopSound = false;
+	bool										hasPlayedDeathSound = false;
 
 	int											score = 0;
 	TextNode*									pointsDisplay;

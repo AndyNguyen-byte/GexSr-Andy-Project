@@ -9,7 +9,7 @@ GameState::GameState(StateStack& stack, Context context)
 	, player(*context.player)
 	, scoreText()
 {
-	//context.music->play(MusicID::GameTheme);
+	context.music->play(MusicID::GameTheme);
 }
 
 void GameState::draw()

@@ -353,6 +353,8 @@ void World::handleCollisions()
 
 			turtle.updateScore(1);
 			pillar.destroy();
+
+			turtle.playLocalSound(commands, SoundEffectID::ScoreSound);
 		}
 		if (matchesCategories(pair, Category::type::Turtle, Category::type::Shark))
 		{

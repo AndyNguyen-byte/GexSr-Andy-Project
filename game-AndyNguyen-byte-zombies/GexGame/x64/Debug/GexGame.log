@@ -1,2 +1,5 @@
-﻿  MenuState.cpp
+﻿  GameState.cpp
+  MusicPlayer.cpp
+  PauseState.cpp
+  Generating Code...
   GexGame.vcxproj -> D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\x64\Debug\GexGame.exe

@@ -59,6 +59,10 @@ enum class SoundEffectID
 	FrogDie,
 	FrogJump,
 
+	HopSound,
+	ScoreSound,
+	DeathSound,
+	HitSound,
 };
 
 

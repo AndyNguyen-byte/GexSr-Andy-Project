@@ -130,6 +130,7 @@ void Turtle::hop(Direction hopDirection)
 			direction = Direction::Up;
 			_movementClock.restart();
 			setVelocity(0.f, 0.f);
+			isHopping = true;
 			state = State::Flying;
 			break;
 		default:
@@ -167,6 +168,27 @@ void Turtle::updateCurrent(sf::Time dt, CommandQueue& commands)
 	{
 		_movementClock.restart();
 		state = State::Falling;
+	}
+
+	if (isHopping) {
+		isHopping = false;
+		SoundEffectID effect = SoundEffectID::HopSound;
+		playLocalSound(commands, effect);
+		hasPlayedHopSound = true;
+	}
+	else {
+		hasPlayedHopSound = false;
+	}
+
+	if (isDead) {
+		if (!hasPlayedDeathSound)
+		{
+			hasPlayedDeathSound = true;
+			SoundEffectID effect = SoundEffectID::DeathSound;
+			SoundEffectID effect2 = SoundEffectID::HitSound;
+			playLocalSound(commands, effect2);
+			playLocalSound(commands, effect);
+		}
 	}
 
 	updateFlyAnimation();

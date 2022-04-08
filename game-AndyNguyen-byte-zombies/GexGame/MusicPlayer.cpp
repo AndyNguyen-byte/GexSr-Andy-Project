@@ -9,7 +9,7 @@ MusicPlayer::MusicPlayer()
 
 
 	filenames[MusicID::TitleTheme] = "../Media/Music/dp_frogger.flac";
-	filenames[MusicID::GameTheme] = "../Media/Music/dp_frogger_tweener.flac";
+	filenames[MusicID::GameTheme] = "../Media/Music/GameTheme.ogg";
 }
 
 void MusicPlayer::play(MusicID theme)
