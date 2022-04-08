@@ -7,23 +7,8 @@ namespace sf {
 
 enum class TextureID
 {
-	Zombie1,
-	Zombie2,
-	Zombie3,
-	Zombie4,
-	Zombie5,
-	Hero2,
-
-	Entities,
-	Jungle,
-	Road,
 	TitleScreen,
-	Explosion,
 	Particle,
-	FinishLine,
-
-	MissisleRefill,
-
 	Marsh,
 	Ground,
 	Turtle1,
@@ -33,11 +18,6 @@ enum class TextureID
 	PillarDown1,
 	SharkLeft,
 	SharkRight,
-
-	PlayerFrog,
-	BonusFrog,
-	FrogIcon,
-	Atlas,
 	
 };
 
@@ -48,17 +28,6 @@ enum class FontID
 
 enum class SoundEffectID
 {
-	AlliedGunfire,
-	EnemyGunfire,
-	Explosion1,
-	Explosion2,
-	LaunchMissile,
-	CollectPickup,
-	Button,
-
-	FrogDie,
-	FrogJump,
-
 	HopSound,
 	ScoreSound,
 	DeathSound,
@@ -68,9 +37,6 @@ enum class SoundEffectID
 
 enum class  MusicID
 {
-	MenuTheme,
-	MissionTheme,
-
 	TitleTheme,
 	GameTheme,
 };

@@ -149,8 +149,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Aircraft.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animation2.cpp" />
     <ClCompile Include="Application.cpp" />
@@ -160,23 +158,18 @@
     <ClCompile Include="DataTables.cpp" />
     <ClCompile Include="EmitterNode.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Frog.cpp" />
     <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="JsonFrameParser.cpp" />
-    <ClCompile Include="Lilypad.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="ParticleNode.cpp" />
     <ClCompile Include="PauseState.cpp" />
-    <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Pillar.cpp" />
     <ClCompile Include="PillarGroup.cpp" />
     <ClCompile Include="PlayerControl.cpp" />
     <ClCompile Include="PostEffect.cpp" />
-    <ClCompile Include="Projectile.cpp" />
-    <ClCompile Include="RiverEnitites.cpp" />
     <ClCompile Include="SceneNode.cpp" />
     <ClCompile Include="Sharks.cpp" />
     <ClCompile Include="SoundNode.cpp" />
@@ -189,12 +182,9 @@
     <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="Turtle.cpp" />
     <ClCompile Include="Utility.cpp" />
-    <ClCompile Include="Vehicles.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="Aircraft.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animation2.h" />
     <ClInclude Include="Application.h" />
@@ -205,13 +195,11 @@
     <ClInclude Include="DataTables.h" />
     <ClInclude Include="EmitterNode.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="Frog.h" />
     <ClInclude Include="GameOverState.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonFrameParser.h" />
-    <ClInclude Include="Lilypad.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MusicPlayer.h" />
     <ClInclude Include="Particle.h" />
@@ -222,11 +210,9 @@
     <ClInclude Include="PillarGroup.h" />
     <ClInclude Include="PlayerControl.h" />
     <ClInclude Include="PostEffect.h" />
-    <ClInclude Include="Projectile.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceIdentifiers.h" />
     <ClInclude Include="ResourceHolder.h" />
-    <ClInclude Include="RiverEntities.h" />
     <ClInclude Include="SceneNode.h" />
     <ClInclude Include="Sharks.h" />
     <ClInclude Include="SoundNode.h" />
@@ -239,7 +225,6 @@
     <ClInclude Include="TitleState.h" />
     <ClInclude Include="Turtle.h" />
     <ClInclude Include="Utility.h" />
-    <ClInclude Include="Vehicles.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,12 +1,9 @@
 #include "PlayerControl.h"
 
-#include "Aircraft.h"
-#include "Actor.h"
 #include "Command.h"
 #include "CommandQueue.h"
 
 #include <iostream> 
-#include "Frog.h"
 #include "Turtle.h"
 
 PlayerControl::PlayerControl()

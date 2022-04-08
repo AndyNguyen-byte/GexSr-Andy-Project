@@ -5,16 +5,12 @@
 #include "SceneNode.h"
 
 #include "SpriteNode.h"
-#include "Aircraft.h"
 #include "CommandQueue.h"
 #include "Command.h"
 #include "BloomEffect.h"
-#include "Actor.h"
 #include "Frog.h"
 #include  "Sharks.h"
 #include "Ground.h"
-#include "Lilypad.h"
-#include "Vehicles.h"
 #include "RiverEntities.h"
 
 #include <SFML/Graphics/View.hpp>

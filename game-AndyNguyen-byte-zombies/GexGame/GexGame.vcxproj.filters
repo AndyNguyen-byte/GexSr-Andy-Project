@@ -33,9 +33,6 @@
     <ClCompile Include="SpriteNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Aircraft.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,12 +69,6 @@
     <ClCompile Include="DataTables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pickup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameOverState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -109,21 +100,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="JsonFrameParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Frog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Lilypad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vehicles.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RiverEnitites.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
@@ -162,9 +138,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SpriteNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Aircraft.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Category.h">
@@ -207,9 +180,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DataTables.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Pickup.h">
@@ -255,21 +225,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JsonFrameParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Frog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Lilypad.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vehicles.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RiverEntities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">

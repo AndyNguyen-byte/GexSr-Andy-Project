@@ -1,16 +1,14 @@
 #include "World.h"
 #include "Utility.h"
-#include "Pickup.h"
-#include "Projectile.h"
 #include "ParticleNode.h"
-#include "Lilypad.h"
 #include "SoundNode.h"
-
-#include <algorithm>
-#include <SFML/Graphics/RenderWindow.hpp>
 #include "Pillar.h"
 #include "PillarGroup.h"
 #include "Sharks.h"
+
+#include <algorithm>
+#include <SFML/Graphics/RenderWindow.hpp>
+
 
 const float TITLE_HEIGHT = 1024 / 16;
 const float TITLE_WIDTH = 1156 / 15;
@@ -115,21 +113,12 @@ int World::getScore()
 
 void World::loadTextures()
 {
-	textures.load(TextureID::Entities, "../Media/Textures/Entities.png"); 
-	
-	textures.load(TextureID::Particle, "../Media/Textures/Particle.png");
-	textures.load(TextureID::FinishLine, "../Media/Textures/FinishLine.png");
-	textures.load(TextureID::Explosion, "../Media/Textures/Explosion.png");
-
-	textures.load(TextureID::Atlas, "../Media/Textures/Atlas.png");
 	textures.load(TextureID::Marsh, "../Media/Textures/BackGround1.png");
 	textures.load(TextureID::Turtle1, "../Media/Textures/Turtle1.png");
 	textures.load(TextureID::PillarUp1, "../Media/Textures/PillarUp.png");
 	textures.load(TextureID::PillarDown1, "../Media/Textures/PillarDown.png");
 	textures.load(TextureID::SharkLeft, "../Media/Textures/Shark1.png");
 	textures.load(TextureID::SharkRight, "../Media/Textures/Shark2.png");
-
-	textures.load(TextureID::MissisleRefill, "../Media/Textures/MissileRefill.png");
 	textures.load(TextureID::Ground, "../Media/Textures/Ground.png");
 
 }

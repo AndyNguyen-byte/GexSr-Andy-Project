@@ -21,15 +21,6 @@ SoundPlayer::SoundPlayer()
 	: soundBuffers()
 	, sounds()
 {
-	loadBuffer(SoundEffectID::AlliedGunfire, "../Media/Sound/AlliedGunfire.wav");
-	loadBuffer(SoundEffectID::EnemyGunfire, "../Media/Sound/EnemyGunfire.wav");
-	loadBuffer(SoundEffectID::Explosion1, "../Media/Sound/Explosion1.wav");
-	loadBuffer(SoundEffectID::Explosion2, "../Media/Sound/Explosion2.wav");
-	loadBuffer(SoundEffectID::LaunchMissile, "../Media/Sound/LaunchMissile.wav");
-	loadBuffer(SoundEffectID::CollectPickup, "../Media/Sound/CollectPickup.wav");
-	loadBuffer(SoundEffectID::Button, "../Media/Sound/Button.wav");
-	//loadBuffer(SoundEffectID::FrogJump, "../Media/Sound/sound-frogger-hop.wav");
-	loadBuffer(SoundEffectID::FrogDie, "../Media/Sound/froggerDie.wav");
 
 	loadBuffer(SoundEffectID::HopSound, "../Media/Sound/sfx_wing.wav");
 	loadBuffer(SoundEffectID::DeathSound, "../Media/Sound/sfx_die.wav");
