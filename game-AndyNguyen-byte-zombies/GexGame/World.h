@@ -57,8 +57,8 @@ private:
 	void			checkTurtlePos();
 	void			killTurtle();
 	void			difficultySet();
-	void			reverseTurtle();
-	void			reverseGamePlay();
+	void			reverseTurtle(bool state);
+	void			reverseGamePlay(bool state);
 	
 	sf::FloatRect	getViewBounds() const;
 	sf::FloatRect	getBattlefield() const;

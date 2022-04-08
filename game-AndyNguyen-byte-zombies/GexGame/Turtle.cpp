@@ -86,13 +86,23 @@ void Turtle::updateFlyAnimation()
 
 void Turtle::reverseGravity(bool b)
 {
+	atStart = false;
 	reverse = b;
 }
 
-void Turtle::flipPointDisplay()
+void Turtle::flipPointDisplay(bool state)
 {
-	pointsDisplay->setScale(-1.f, 1.f);
+	if (state)
+	{
+		pointsDisplay->setScale(-1.f, 1.f);
+	}
+	else
+	{
+		pointsDisplay->setScale(-1.f, 1.f);
+		pointsDisplay->setScale(-1.f, 1.f);
+	}
 }
+
 
 sf::FloatRect Turtle::getBoundingRect() const
 {
@@ -202,9 +212,13 @@ void Turtle::updateTexts()
 	pointsDisplay->setPosition(0.f, 50.f);
 	if (!reverse) {
 		pointsDisplay->setRotation(-getRotation());
+		if (!atStart)
+		{
+			flipPointDisplay(false);
+		}
 	}
 	else {
 		pointsDisplay->setRotation(getRotation());
-		flipPointDisplay();
+		flipPointDisplay(true);
 	}
 }

@@ -48,7 +48,7 @@ public:
 	int						getScore();
 	void					setDeathStatus(bool s);
 	void					reverseGravity(bool b);
-	void					flipPointDisplay();
+	void					flipPointDisplay(bool state);
 	virtual sf::FloatRect	getBoundingRect() const override;
 
 
@@ -76,6 +76,7 @@ private:
 	bool										isDead = false;
 	bool										reverse = false;
 	bool										isHopping = false;
+	bool										atStart = true;
 	bool										hasPlayedHopSound = false;
 	bool										hasPlayedDeathSound = false;
 
