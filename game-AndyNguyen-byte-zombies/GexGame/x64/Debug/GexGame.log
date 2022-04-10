@@ -1,4 +1,4 @@
 ﻿  World.cpp
 D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\World.cpp(101,9): warning C4804: '<=': unsafe use of type 'bool' in operation
-D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\World.cpp(232,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\GexGame\World.cpp(249,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   GexGame.vcxproj -> D:\Studies\C++\FlappyTurtleProject\game-AndyNguyen-byte-zombies\x64\Debug\GexGame.exe

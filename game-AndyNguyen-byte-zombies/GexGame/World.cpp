@@ -176,15 +176,32 @@ void World::buildScene()
 
 void World::resetGroundPos()
 {
-	if (ground1->getPosition().x < TITLE_WIDTH * -7.5)
-	{
-		ground1->setPosition(TITLE_WIDTH * 22.5, TITLE_HEIGHT * 15);
-	}
 
-	if (ground2->getPosition().x < TITLE_WIDTH * -7.5)
+	if (!enableReverseGameplay)
 	{
-		ground2->setPosition(TITLE_WIDTH * 22.5, TITLE_HEIGHT * 15);
+		if (ground1->getPosition().x < TITLE_WIDTH * -7.5)
+		{
+			ground1->setPosition(TITLE_WIDTH * 22.5, TITLE_HEIGHT * 15);
+		}
+
+		if (ground2->getPosition().x < TITLE_WIDTH * -7.5)
+		{
+			ground2->setPosition(TITLE_WIDTH * 22.5, TITLE_HEIGHT * 15);
+		}
 	}
+	else
+	{
+		if (ground1->getPosition().x > TITLE_WIDTH * 22.5)
+		{
+			ground1->setPosition(TITLE_WIDTH * -7.5, TITLE_HEIGHT * 15);
+		}
+
+		if (ground2->getPosition().x > TITLE_WIDTH * 22.5)
+		{
+			ground2->setPosition(TITLE_WIDTH * -7.5, TITLE_HEIGHT * 15);
+		}
+	}
+	
 }
 
 void World::makePillarChunk(float y)
@@ -255,26 +272,67 @@ void World::killTurtle()
 
 void World::difficultySet()
 {
-	/*if (playerTurtle->getScore() == 10)
+
+	switch (getScore())
+	{
+	case 10:														//10 point mark
+		enableSharks = true;
+		break;
+	case 15:														//15 point mark
+		enableSharks = false;
+		reverseTurtle(true);
+		break;
+	case 20:														//20 point mark
+		reverseTurtle(false);
+		reverseGamePlay(true);
+		break;
+	case 25:														//25 point mark
+		reverseGamePlay(false);
+		break;
+	case 35:														//35 point mark
+		reverseGamePlay(true);
+		reverseTurtle(true);
+		playerTurtle->setScale(1.0f, 1.0f);
+		break;
+	case 40:														//40 point mark
+		reverseGamePlay(false);
+		playerTurtle->setScale(-1.0f, 1.0f);
+		break;
+	default:
+		break;
+	}
+
+
+	//Testing reverse gameplay
+	/*if (getScore() == 2)
+	{
+		reverseGamePlay(true);
+	}
+	if (getScore() == 4)
+	{
+		reverseGamePlay(false);
+	}*/
+
+	//Testing sharks
+	/*if (getScore() == 2)
 	{
 		enableSharks = true;
+	}
+	if (getScore() == 4)
+	{
+		enableSharks = false;
 	}*/
-	if (playerTurtle->getScore() == 4)
+
+	//Testing reverse gravity
+	/*if (getScore() == 2)
 	{
 		reverseTurtle(true);
-		reverseGamePlay(true);
-		playerTurtle->setScale(1.f, 1.f);
-		//enableSharks = false;
 	}
-	if (playerTurtle->getScore() == 7)
+	if (getScore() == 4)
 	{
 		reverseTurtle(false);
-	}
-	/*if (playerTurtle->getScore() == 20)
-	{
-		reverseGamePlay(true);
-		enableSharks = true;
 	}*/
+
 }
 
 void World::reverseTurtle(bool state)
@@ -287,11 +345,15 @@ void World::reverseGamePlay(bool state)
 	enableReverseGameplay = state;
 	if (state)
 	{
-		playerTurtle->setScale(-1.f, 1.f);
+ 		playerTurtle->setScale(-1.f, 1.f);
+		ground1->setVelocity(3 * TITLE_WIDTH, 0);
+		ground2->setVelocity(3 * TITLE_WIDTH, 0);
 	}
 	else
 	{
 		playerTurtle->setScale(1.f, 1.f);
+		ground1->setVelocity(-3 * TITLE_WIDTH, 0);
+		ground2->setVelocity(-3 * TITLE_WIDTH, 0);
 	}
 	
 }
