@@ -206,7 +206,6 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleNode.h" />
     <ClInclude Include="PauseState.h" />
-    <ClInclude Include="Pickup.h" />
     <ClInclude Include="Pillar.h" />
     <ClInclude Include="PillarGroup.h" />
     <ClInclude Include="PlayerControl.h" />
