@@ -255,35 +255,31 @@ void World::killTurtle()
 
 void World::difficultySet()
 {
-	if (playerTurtle->getScore() == 10)
+	/*if (playerTurtle->getScore() == 10)
 	{
 		enableSharks = true;
-	}
-	if (playerTurtle->getScore() == 15)
+	}*/
+	if (playerTurtle->getScore() == 4)
 	{
 		reverseTurtle(true);
-		enableSharks = false;
+		reverseGamePlay(true);
+		playerTurtle->setScale(1.f, 1.f);
+		//enableSharks = false;
 	}
-	if (playerTurtle->getScore() == 20)
+	if (playerTurtle->getScore() == 7)
+	{
+		reverseTurtle(false);
+	}
+	/*if (playerTurtle->getScore() == 20)
 	{
 		reverseGamePlay(true);
-	}
+		enableSharks = true;
+	}*/
 }
 
 void World::reverseTurtle(bool state)
 {
-	if (state)
-	{
-		playerTurtle->reverseGravity(true);
-		playerTurtle->setScale(-1.f, 1.f);
-		playerTurtle->setRotation(180);
-	}
-	else
-	{
-		playerTurtle->reverseGravity(false);
-		playerTurtle->setScale(1.f, -1.f);
-		playerTurtle->setRotation(180);
-	}
+	playerTurtle->reverseGravity(state);
 }
 
 void World::reverseGamePlay(bool state)
@@ -292,7 +288,10 @@ void World::reverseGamePlay(bool state)
 	if (state)
 	{
 		playerTurtle->setScale(-1.f, 1.f);
-		playerTurtle->flipPointDisplay(true);
+	}
+	else
+	{
+		playerTurtle->setScale(1.f, 1.f);
 	}
 	
 }

@@ -32,11 +32,11 @@ Turtle::Turtle(Type type, const TextureHolder_t& textures, const FontHolder_t& f
 {
 	centerOrigin(sprite);
 
-	std::unique_ptr<TextNode> score(new TextNode(fonts, ""));
-	pointsDisplay = score.get(); ///< raw pointer to scoreDisplay node
-	attachChild(std::move(score));
+	//std::unique_ptr<TextNode> score(new TextNode(fonts, ""));
+	//pointsDisplay = score.get(); ///< raw pointer to scoreDisplay node
+	//attachChild(std::move(score));
 
-	updateTexts();
+	//updateTexts();
 }
 
 void Turtle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
@@ -88,18 +88,15 @@ void Turtle::reverseGravity(bool b)
 {
 	atStart = false;
 	reverse = b;
-}
-
-void Turtle::flipPointDisplay(bool state)
-{
-	if (state)
+	if (b)
 	{
-		pointsDisplay->setScale(-1.f, 1.f);
+		setRotation(180);
+		setScale(-1.0f, 1.0f);
 	}
 	else
 	{
-		pointsDisplay->setScale(-1.f, 1.f);
-		pointsDisplay->setScale(-1.f, 1.f);
+		setScale(1.0f, 1.0f);
+		setRotation(0);
 	}
 }
 
@@ -152,26 +149,30 @@ void Turtle::updateCurrent(sf::Time dt, CommandQueue& commands)
 {
 	centerOrigin(sprite);
 
-	updateTexts();
+	//updateTexts();
 
-	if (Turtle::State::Falling == state)
+	switch (state)
 	{
-		if (reverse)
+	case Turtle::State::Falling:
+		if (!reverse)
 		{
-			accelerate(0.f, -GRAVITY * dt.asSeconds());
-		}
-		else {
 			accelerate(0.f, GRAVITY * dt.asSeconds());
 		}
-	} else if (Turtle::State::Flying == state)
-	{
-		if (reverse)
-		{
-			accelerate(0.f, -FLYING_SPEED * dt.asSeconds());
-		}
 		else {
+			accelerate(0.f, -GRAVITY * dt.asSeconds());
+		}
+		break;
+	case Turtle::State::Flying:
+		if (!reverse)
+		{
 			accelerate(0.f, FLYING_SPEED * dt.asSeconds());
 		}
+		else {
+			accelerate(0.f, -FLYING_SPEED * dt.asSeconds());
+		}
+		break;
+	default:
+		break;
 	}
 
 	if (_movementClock.getElapsedTime().asSeconds() > FLYING_DURATION)
@@ -210,15 +211,5 @@ void Turtle::updateTexts()
 {
 	pointsDisplay->setText("Score: " + std::to_string(getScore()));
 	pointsDisplay->setPosition(0.f, 50.f);
-	if (!reverse) {
-		pointsDisplay->setRotation(-getRotation());
-		if (!atStart)
-		{
-			flipPointDisplay(false);
-		}
-	}
-	else {
-		pointsDisplay->setRotation(getRotation());
-		flipPointDisplay(true);
-	}
+
 }

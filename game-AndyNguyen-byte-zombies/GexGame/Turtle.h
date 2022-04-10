@@ -48,7 +48,6 @@ public:
 	int						getScore();
 	void					setDeathStatus(bool s);
 	void					reverseGravity(bool b);
-	void					flipPointDisplay(bool state);
 	virtual sf::FloatRect	getBoundingRect() const override;
 
 
