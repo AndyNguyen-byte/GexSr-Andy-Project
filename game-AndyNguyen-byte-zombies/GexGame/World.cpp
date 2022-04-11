@@ -328,7 +328,7 @@ void World::difficultySet()
 	{
 		reverseTurtle(true);
 	}
-	if (getScore() == 4)
+	if (getScore() == 7)
 	{
 		reverseTurtle(false);
 	}*/
